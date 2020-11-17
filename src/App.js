@@ -1,15 +1,17 @@
 import React from 'react';
 import { AuthProvider } from './Auth/context/AuthContext'
 import LoginPage from './Auth/LoginPage/LoginPage';
+import DashBoard from './components/Dashboard/Dashboard'
 import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './Auth/AdminPrivateRoute'
 
 function App() {
-  console.log(process.env.REACT_APP_DATABASE_URL)
   return (
     <AuthProvider>
       <Switch>
         <Route path='/admin' component={LoginPage} />
-        <Route exact path='/dashboard' component={<div>dashboard</div>} />
+        <PrivateRoute exact path='/dashboard' component={DashBoard} />
+        {/* <Route exact path='/dashboard' component={DashBoard} /> */}
       </Switch>
     </AuthProvider>
   );

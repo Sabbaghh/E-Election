@@ -1,9 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { auth } from '../../FireBase/fireBase'
-const AuthContext = createContext()
-export const useAuth = () => {
-    useContext(AuthContext);
-}
+import React, { createContext, useState, useEffect } from 'react';
+import { auth } from '../../FireBase/fireBase';
+
+export const AuthContext = createContext();
+
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
@@ -11,17 +10,31 @@ export const AuthProvider = ({ children }) => {
     const signup = (email, PWD) => {
         return auth.createUserWithEmailAndPassword(email, PWD);
     }
+    const login = (email, PWD) => {
+        return auth.signInWithEmailAndPassword(email, PWD);
+    }
+    const resetPassword = (email) => {
+        return auth.sendPasswordResetEmail(email);
+    }
+    const logout = () => {
+        return auth.signOut();
+    }
 
     useEffect(() => {
         const unSub = auth.onAuthStateChanged(user => {
-            setLoading(false);
             setCurrentUser(user);
+            setLoading(false);
         });
-    }, [])
+        return unSub;
+    }, []);
+
 
     const value = {
         currentUser,
-        signup
+        signup,
+        login,
+        resetPassword,
+        logout
     }
     return (
         <AuthContext.Provider value={value}>

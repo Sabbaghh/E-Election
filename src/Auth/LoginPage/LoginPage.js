@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import './LoginPage.css';
 //vectors
 import LoginAvatar from '../../assests/adminPanel/login.png';
@@ -10,20 +10,65 @@ import LoginForm from './LoginForm/LoginForm';
 import { SimpleFade } from '../../Animation/simpleFade';
 import { motion } from 'framer-motion';
 
+import { AuthContext } from '../context/AuthContext';
+//routers
+import { useHistory } from 'react-router-dom';
+
 const LoginPage = () => {
     const [toggle, setToggle] = useState(true);
-    useEffect(() => {
-        console.log('changes');
-    }, [toggle]);
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const history = useHistory();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const login = useContext(AuthContext).login;
+    const resetPassword = useContext(AuthContext).resetPassword;
+
+
+    const handleLoginSubmit = async (e) => {
+        e.preventDefault();
+        let emailValue = emailRef.current.value;
+        let passwordValue = passwordRef.current.value;
+        try {
+            setError('');
+            setLoading(true);
+            await login(emailValue, passwordValue);
+            history.push('/dashboard');
+        } catch {
+            setError('failed to log in');
+        }
+        setLoading(false);
+    }
+
+    const handleResetSubmit = async (e) => {
+        e.preventDefault();
+        let emailValue = emailRef.current.value;
+        try {
+            setError('');
+            setLoading(true);
+            await resetPassword(emailValue);
+        } catch {
+            setError('fail to reset password')
+        }
+        setLoading(false);
+    }
 
     return (
         <div className='login-container'>
             <div className='loginPage'>
+                {/* handling error */}
+                {error && <div>{error}</div>}
+                {loading && <div>loading...</div>}
                 <div className='left-side'>
                     <NavLinks setToggle={setToggle} />
                     {toggle ?
-                        <LoginForm type='login' /> :
-                        <LoginForm type='reset' />
+                        <LoginForm type='login'
+                            HandleSubmit={handleLoginSubmit}
+                            emailRef={emailRef}
+                            passwordRef={passwordRef} /> :
+                        <LoginForm type='reset'
+                            HandleSubmit={handleResetSubmit}
+                            emailRef={emailRef} />
                     }
                 </div>
                 <div className='right-side'>
