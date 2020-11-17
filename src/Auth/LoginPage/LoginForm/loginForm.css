@@ -1,0 +1,56 @@
+.loginForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: #855774;
+	width: 90%;
+	height: 70%;
+	background-image: url('../../../assests/adminPanel/bg.jpg');
+	/* border-bottom-right-radius: 5rem; */
+}
+.loginForm label {
+	color: #fff;
+	margin-top: 0.5rem;
+	font-size: 1.5rem;
+}
+.loginForm input {
+	outline: none;
+	border: none;
+	width: 20rem;
+	height: 2.6rem;
+	font-size: 1.5rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	margin-top: 0.5rem;
+	transition: all 1s ease-in-out;
+}
+.loginForm button {
+	margin-top: 0.5rem;
+	outline: none;
+	border: none;
+	width: 20rem;
+	font-size: 1.5rem;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	background-color: #46768c;
+	color: #fff;
+	transition: all 0.2s ease-in;
+}
+.loginForm button:active,
+.loginForm button:hover {
+	background-color: #0a1e27;
+}
+
+.loginForm input:focus {
+	border: 0.1rem solid #0a1e27;
+}
+
+@media (max-width: 750px) {
+	.loginForm input {
+		width: 15rem;
+	}
+	.loginForm button {
+		width: 15rem;
+	}
+}

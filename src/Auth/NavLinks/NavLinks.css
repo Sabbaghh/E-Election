@@ -1,0 +1,39 @@
+.login-f-pass {
+	width: 90%;
+	border-top-left-radius: 5rem;
+	border-top-right-radius: 0.8rem;
+	border-bottom-right-radius: 0.8rem;
+	background-color: #855774;
+}
+.login-f-pass ul {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 3rem;
+	border-radius: inherit;
+	border-bottom-right-radius: inherit;
+	border-top-right-radius: inherit;
+}
+.login-f-pass ul li:first-child {
+	border-radius: inherit;
+	border-bottom-right-radius: inherit;
+	border-top-right-radius: 0;
+	border-top-left-radius: inherit;
+}
+.login-f-pass ul li:last-child {
+	border-bottom-left-radius: 0.8rem;
+}
+
+.login-f-pass ul li {
+	flex: 1;
+	background-color: #855774;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	line-height: 3rem;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: color 1s ease, background-color 1s ease;
+}
