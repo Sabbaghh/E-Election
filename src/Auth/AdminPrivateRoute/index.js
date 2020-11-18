@@ -1,10 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import SecondDashboard from '../../components/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
+import axios from 'axios';
+import SecondDashboard from '../../components/Dashboards/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const currentUser = useContext(AuthContext).currentUser;
+    const [isMainAdmin, setIsMainAdmin] = useState(false);
+
+    useEffect(() => {
+        axios.get(`https://e-election-e4023.firebaseio.com/admins/${(currentUser.email).split(".")[0]}/auth.json`)
+            .then(res => {
+                setIsMainAdmin(res.data);
+            }).catch(err => console.log(err));
+    }, [currentUser])
     return (
         <Route
             {...rest}
@@ -12,7 +21,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                 props => {
                     // return currentUser.email ==='test@test.com' ? <Component {...props} /> : <Redirect to='/login' />
                     if (currentUser) {
-                        return currentUser.email === 'admin@admin.com' ? <Component {...props} /> : <SecondDashboard {...props} />
+                        return isMainAdmin ?
+                            <Component {...props} /> : <SecondDashboard {...props} />
                     } else {
                         return <Redirect to='/admin' />
                     }

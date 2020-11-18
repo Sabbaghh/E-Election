@@ -1,7 +1,7 @@
 import React from 'react';
 import { AuthProvider } from './Auth/context/AuthContext'
 import LoginPage from './Auth/LoginPage/LoginPage';
-import DashBoard from './components/Dashboard/MainAdminDashboard/MainAdminDashBoard'
+import DashBoard from './components/Dashboards/MainAdminDashboard/MainAdminDashBoard'
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './Auth/AdminPrivateRoute'
 

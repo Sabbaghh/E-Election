@@ -3,7 +3,7 @@ import React from 'react';
 const SecondDashboard = () => {
     return (
         <div>
-            SecondDashboard
+            secondary admin dashboard
         </div>
     );
 };
