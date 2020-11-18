@@ -13,6 +13,8 @@ import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 //routers
 import { useHistory } from 'react-router-dom';
+//UI
+import Spinner from '../../components/UI/Backdrop/Backdrop';
 
 const LoginPage = () => {
     const [toggle, setToggle] = useState(true);
@@ -55,11 +57,10 @@ const LoginPage = () => {
 
     return (
         <div className='login-container'>
+            {loading && <Spinner />}
             <div className='loginPage'>
-                {/* handling error */}
-                {error && <div>{error}</div>}
-                {loading && <div>loading...</div>}
                 <div className='left-side'>
+
                     <NavLinks setToggle={setToggle} />
                     {toggle ?
                         <LoginForm type='login'
@@ -70,6 +71,7 @@ const LoginPage = () => {
                             HandleSubmit={handleResetSubmit}
                             emailRef={emailRef} />
                     }
+                    {error && <h1 style={{ margin: '10px', color: '#d62828' }}>{error}</h1>}
                 </div>
                 <div className='right-side'>
                     <motion.img variants={SimpleFade} initial='initial' animate='animate'
