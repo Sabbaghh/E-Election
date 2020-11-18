@@ -1,0 +1,7 @@
+.AdminNavBar {
+	width: 25rem;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	background-color: slateblue;
+}
