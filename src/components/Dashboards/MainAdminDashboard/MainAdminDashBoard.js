@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from '../../UI/Spinners/Spinner'
 
 const Dashboard = () => {
     return (
