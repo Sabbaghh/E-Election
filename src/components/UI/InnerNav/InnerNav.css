@@ -5,6 +5,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	width: 50%;
 }
 .AnyItem-container {
 	display: flex;
@@ -17,8 +18,6 @@
 }
 
 .logo {
-	width: 5rem;
-	height: 5rem;
 	background-color: rosybrown;
 	overflow: hidden;
 	margin-top: 1rem;
@@ -63,9 +62,7 @@
 }
 
 .form-container {
-	border: 1px solid rgba(255, 255, 255, 0.3);
-	border-right: none;
-	border-left: none;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	padding: 0.5rem;
 }
 .form-container input {
@@ -82,4 +79,15 @@
 	font-size: 1.7rem;
 	color: #fff;
 	cursor: pointer;
+}
+.college-container {
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	cursor: pointer;
+	color: #fff;
+}
+.college-container div {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	text-align: end;
 }

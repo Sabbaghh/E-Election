@@ -1,10 +1,12 @@
 import React from 'react';
-import './Searchinput.css'
 const SearchInput = () => {
     return (
-        <input type='search'>
-            
-        </input>
+        <div className='AnyItem-container'>
+            <form className='anyitem-container-row form-container'>
+                <i className="fas fa-search"></i>
+                <input type="search" />
+            </form>
+        </div>
     );
 };
 
