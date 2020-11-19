@@ -27,6 +27,12 @@ const Dashboard = () => {
                     <div className='AnyItem-container'>
                         <h2 className='weclome-msg'>WELCOME TO THE MAIN ADMIN PANEL</h2>
                     </div>
+                    <div className='AnyItem-container'>
+                        <form className='anyitem-container-row form-container'>
+                            <i class="fas fa-search"></i>
+                            <input type="search" />
+                        </form>
+                    </div>
                 </InnerNav>
             </AdminsNavBar>
         </div >

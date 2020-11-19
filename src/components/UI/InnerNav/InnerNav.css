@@ -6,6 +6,15 @@
 	justify-content: space-between;
 	align-items: center;
 }
+.AnyItem-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	width: 100%;
+	text-align: center;
+}
 
 .logo {
 	width: 5rem;
@@ -39,18 +48,38 @@
 	cursor: pointer;
 }
 
-.AnyItem-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-	width: 100%;
-	text-align: center;
-}
-
 .weclome-msg {
 	color: #fff;
 	height: 7rem;
 	padding: 1rem;
+}
+
+.anyitem-container-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.form-container {
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-right: none;
+	border-left: none;
+	padding: 0.5rem;
+}
+.form-container input {
+	width: 15.5rem;
+	height: 1.5rem;
+	margin-left: 0.5rem;
+	outline: none;
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	font-size: 1.5rem;
+}
+.form-container i {
+	font-size: 1.7rem;
+	color: #fff;
+	cursor: pointer;
 }
