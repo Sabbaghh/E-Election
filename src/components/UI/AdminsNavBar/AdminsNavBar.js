@@ -1,5 +1,4 @@
 import React from 'react';
-import './AdminNavBar.css';
 
 const AdminsNavBar = ({ children }) => {
     return (

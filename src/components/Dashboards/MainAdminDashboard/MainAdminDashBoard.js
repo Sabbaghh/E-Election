@@ -8,6 +8,8 @@ import ProfileSetting from '../../UI/ProfileSettings/ProfileSetting';
 import WelcomeMsg from '../../UI/WelcomeMsg/WelcomeMsg';
 import SearchInput from '../../UI/inputs/SearchInput/SearchInput';
 import Colleges from './Colleges/Colleges';
+import CollegeInformations from '../../UI/CollegeInformations/CollegeInformations';
+import CollegeItems from './CollegesItems/CollegeItems'
 import './MainAdmin.css'
 export const DashboardContext = createContext();
 
@@ -15,12 +17,17 @@ const Dashboard = () => {
     const [colleges, setColleges] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [currentCollege, setCurrentCollege] = useState('');
+    const [currentItem, setCurrentItem] = useState('admin');
     const value = {
         colleges,
         setColleges,
         error,
         setError,
-        setLoading
+        setLoading,
+        setCurrentCollege,
+        setCurrentItem,
+        currentItem
     }
     useEffect(() => {
         return;
@@ -42,9 +49,9 @@ const Dashboard = () => {
                         </div>
                     </InnerNav>
                 </AdminsNavBar>
-                <div>
-                    hehehe
-                </div>
+                <CollegeInformations>
+                    {currentCollege ? <CollegeItems /> : <div>hello</div>}
+                </CollegeInformations>
             </div >
         </DashboardContext.Provider >
     );

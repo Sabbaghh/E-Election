@@ -2,3 +2,103 @@
 	display: flex;
 	flex-direction: row;
 }
+.AdminNavBar {
+	width: 25rem;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	background-color: slateblue;
+}
+.inner-sm-nav {
+	height: 100vh;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+}
+.AnyItem-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	width: 100%;
+	text-align: center;
+}
+
+.logo {
+	background-color: rosybrown;
+	overflow: hidden;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	border-radius: 50%;
+}
+
+.logo img {
+	display: block;
+	width: 100%;
+	cursor: pointer;
+}
+
+.setting-conatiner {
+	align-self: flex-end;
+	height: 10rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.3);
+	overflow: hidden;
+}
+
+.setting-conatiner div {
+	padding: 2rem;
+	font-size: 1.5rem;
+	color: rgba(255, 255, 255, 0.5);
+}
+.setting-conatiner div i {
+	cursor: pointer;
+}
+
+.weclome-msg {
+	color: #fff;
+	height: 7rem;
+	padding: 1rem;
+}
+
+.anyitem-container-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.form-container {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	padding: 0.5rem;
+}
+.form-container input {
+	width: 15.5rem;
+	height: 1.5rem;
+	margin-left: 0.5rem;
+	outline: none;
+	background-color: transparent;
+	border: none;
+	color: #fff;
+	font-size: 1.5rem;
+}
+.form-container i {
+	font-size: 1.7rem;
+	color: #fff;
+	cursor: pointer;
+}
+.college-container {
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
+	cursor: pointer;
+	color: #fff;
+}
+.college-container div {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	text-align: end;
+}

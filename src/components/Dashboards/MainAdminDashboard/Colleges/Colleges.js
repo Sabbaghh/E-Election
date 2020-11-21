@@ -5,7 +5,7 @@ import { DashboardContext } from '../MainAdminDashBoard';
 import LogoElemnt from '../../../UI/LogoElement/logoElement'
 
 const Colleges = () => {
-    const { colleges, setColleges, setLoading, setError } = useContext(DashboardContext);
+    const { colleges, setColleges, setLoading, setError, setCurrentCollege } = useContext(DashboardContext);
 
     useEffect(() => {
         setLoading(true);
@@ -13,6 +13,7 @@ const Colleges = () => {
             .then(res => {
                 setColleges(res.data)
                 setLoading(false);
+                console.log(res.data);
             })
             .catch(err => { setError(err) })
     }, []);
@@ -22,7 +23,8 @@ const Colleges = () => {
             {colleges !== null &&
                 Object.keys(colleges).map(el => {
                     return (
-                        <div key={el} className='anyitem-container-row'>
+                        <div key={el} className='anyitem-container-row'
+                            onClick={(e) => { setCurrentCollege(el) }}>
                             <LogoElemnt src={logo} alt={el} width={'4rem'} height={'4rem'} />
                             <div className='AnyItem-container'
                                 style={{ width: '70%', border: 'none', textAlign: 'end' }}>

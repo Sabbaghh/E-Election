@@ -1,5 +1,4 @@
 import React from 'react';
-import './InnerNav.css'
 
 const InnerNav = ({ children, style }) => {
     return (
