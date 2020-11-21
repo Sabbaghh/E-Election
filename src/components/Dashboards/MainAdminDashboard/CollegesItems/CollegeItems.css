@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.college-items-conatiner {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	width: 70.7vw;
+	height: 100vh;
+	background-color: red;
+}
+.college-items-conatiner .item {
+	background-color: #1b1e27;
+	width: 50%;
+	height: 10rem;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: none;
+	border-top: none;
+	box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.3);
+	z-index: 10;
+}
+
+.college-items-conatiner .item .icon {
+	font-size: 4rem;
+	color: rgba(255, 255, 255, 0.7);
+}
+.college-items-conatiner .item .itemName {
+	color: #fff;
+	font-size: 3rem;
+	font-family: 'Anton', sans-serif;
+}
+.item.active {
+	background-color: #252832;
+	z-index: 3;
+	border: 3px solid #fff;
+}
