@@ -9,7 +9,8 @@ import WelcomeMsg from '../../UI/WelcomeMsg/WelcomeMsg';
 import SearchInput from '../../UI/inputs/SearchInput/SearchInput';
 import Colleges from './Colleges/Colleges';
 import CollegeInformations from '../../UI/CollegeInformations/CollegeInformations';
-import CollegeItems from './CollegesItems/CollegeItems'
+import CollegeItems from './CollegesItems/CollegeItems';
+import DefaultPage from '../../UI/defualtPage/DefualtPage';
 import './MainAdmin.css'
 export const DashboardContext = createContext();
 
@@ -29,6 +30,10 @@ const Dashboard = () => {
         setCurrentItem,
         currentItem
     }
+    const returnToDefualtPage = () => {
+        console.log('hehe');
+        setCurrentCollege('');
+    }
     useEffect(() => {
         return;
     }, [])
@@ -37,7 +42,7 @@ const Dashboard = () => {
             <div className='MainAdminDashboard'>
                 <AdminsNavBar>
                     <InnerNav style={{ width: '6.5rem', backgroundColor: '#1b1e27', zIndex: 2 }} >
-                        <LogoElemnt src={logo} alt="app-logo" width={'5rem'} height={'5rem'} alt={'app'} />
+                        <LogoElemnt src={logo} alt="app-logo" width={'5rem'} height={'5rem'} alt={'app'} onfunction={() => returnToDefualtPage()} />
                         <ProfileSetting />
                     </InnerNav>
                     <InnerNav style={{ width: '18.5rem', backgroundColor: '#222632' }}>
@@ -50,7 +55,7 @@ const Dashboard = () => {
                     </InnerNav>
                 </AdminsNavBar>
                 <CollegeInformations>
-                    {currentCollege ? <CollegeItems /> : <div>hello</div>}
+                    {currentCollege ? <CollegeItems /> : <DefaultPage />}
                 </CollegeInformations>
             </div >
         </DashboardContext.Provider >

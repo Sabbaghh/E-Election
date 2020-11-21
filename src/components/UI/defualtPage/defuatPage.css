@@ -1,0 +1,11 @@
+.DefualtPage {
+	background-color: #232830;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 70.7vw;
+	height: 100%;
+}
+.DefualtPage div {
+	opacity: 0.5;
+}
