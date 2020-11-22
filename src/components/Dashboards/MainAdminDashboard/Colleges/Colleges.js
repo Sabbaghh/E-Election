@@ -1,27 +1,38 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useRef } from 'react';
 import axios from 'axios';
 import logo from '../../../../assests/logo/e-election-logo.png'
 import { DashboardContext } from '../MainAdminDashBoard';
+import { ProjectFireStore, TimeStamps } from '../../../../FireBase/fireBase';
 import LogoElemnt from '../../../UI/LogoElement/logoElement'
 
 const Colleges = () => {
-    const { colleges, setColleges, setLoading, setError, setCurrentCollege } = useContext(DashboardContext);
+    const {
+        colleges,
+        setColleges,
+        setLoading,
+        setError,
+        setCurrentCollege
+    } = useContext(DashboardContext);
+
 
     useEffect(() => {
+        let collegesList = [];
         setLoading(true);
-        axios.get('https://e-election-e4023.firebaseio.com/colleges-demo.json')
-            .then(res => {
-                setColleges(res.data)
-                setLoading(false);
-                console.log(res.data);
+        ProjectFireStore.collection('Collage').get().then(res => {
+            res.docs.forEach(doc => {
+                collegesList.push(doc.data()[`Name`]);
             })
-            .catch(err => { setError(err) })
+            setColleges(collegesList);
+            setLoading(false);
+        }).catch(err => {
+            setError(err);
+        })
     }, []);
 
     return (
         <>
-            {colleges !== null &&
-                Object.keys(colleges).map(el => {
+            {colleges &&
+                colleges.map(el => {
                     return (
                         <div key={el} className='anyitem-container-row'
                             onClick={(e) => { setCurrentCollege(el) }}>
@@ -35,8 +46,7 @@ const Colleges = () => {
                             </div>
                         </div>
                     )
-                })
-            }
+                })}
         </>
     );
 };
