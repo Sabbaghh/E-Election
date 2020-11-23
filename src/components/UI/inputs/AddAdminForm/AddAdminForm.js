@@ -71,7 +71,7 @@ const AddAdminForm = () => {
                 }
                 <div className='submitAndCancel'>
                     <button className='SubmitButton'> SAVE</button>
-                    <div onClick={() => onCancel()} className='CancelButton'> CANCEL</div>
+                    <div onClick={() => onCancel()} className='CancelButton btn'> CANCEL</div>
                 </div>
                 {error && <h1 style={{ margin: '10px', color: '#d62828' }}>{error}</h1>}
 
