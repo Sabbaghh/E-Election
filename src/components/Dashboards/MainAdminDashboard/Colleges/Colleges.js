@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useRef } from 'react';
-import axios from 'axios';
+import React, { useEffect, useContext } from 'react';
+import Spinner from '../../../UI/Spinners/Spinner';
 import logo from '../../../../assests/logo/e-election-logo.png'
 import { DashboardContext } from '../MainAdminDashBoard';
-import { ProjectFireStore, TimeStamps } from '../../../../FireBase/fireBase';
+import { ProjectFireStore } from '../../../../FireBase/fireBase';
 import LogoElemnt from '../../../UI/LogoElement/logoElement'
 
 const Colleges = () => {
@@ -11,26 +11,29 @@ const Colleges = () => {
         setColleges,
         setLoading,
         setError,
-        setCurrentCollege
+        setCurrentCollege,
+        loading
     } = useContext(DashboardContext);
 
 
     useEffect(() => {
         let collegesList = [];
         setLoading(true);
-        ProjectFireStore.collection('Collage').get().then(res => {
-            res.docs.forEach(doc => {
-                collegesList.push(doc.data()[`Name`]);
+        ProjectFireStore.collection('Collage').get()
+            .then(res => {
+                res.docs.forEach(doc => {
+                    collegesList.push(doc.data()[`Name`]);
+                })
+                setColleges(collegesList);
+                setLoading(false);
+            }).catch(err => {
+                setError(err);
             })
-            setColleges(collegesList);
-            setLoading(false);
-        }).catch(err => {
-            setError(err);
-        })
     }, []);
 
     return (
-        <>
+        <div className='AnyItem-container college-container'>
+            {loading && <Spinner />}
             {colleges &&
                 colleges.map(el => {
                     return (
@@ -47,7 +50,7 @@ const Colleges = () => {
                         </div>
                     )
                 })}
-        </>
+        </div>
     );
 };
 
