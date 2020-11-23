@@ -1,0 +1,129 @@
+.AddAdminForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	background-color: saddlebrown;
+	background-color: #31333f;
+}
+.AddAdminForm .btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.AddAdminForm form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 2rem;
+	align-items: center;
+	background-color: #161922;
+	width: 50%;
+	height: 60%;
+	border-radius: 2rem;
+}
+.Add-admin-email {
+	width: 100%;
+	height: 4rem;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+.Add-admin-email input,
+.custom-button {
+	font-size: 2rem;
+	height: 100%;
+	cursor: pointer;
+}
+.Add-admin-email input {
+	width: 75%;
+	font-size: 1.8rem;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	color: #fff;
+	margin-left: 1rem;
+}
+.custom-button {
+	color: #fff;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	width: 10%;
+	font-size: 1.5rem;
+}
+.Add-admin-email .icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	width: 15%;
+	height: 100%;
+	color: #1d6751;
+	background-color: #fff;
+	border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+.password-gen {
+	width: 100%;
+	height: 4rem;
+	background-color: royalblue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.3);
+	margin-bottom: 1rem;
+}
+.password-gen input {
+	resize: none;
+	font-size: 3rem;
+	width: 80%;
+	height: 100%;
+	outline: none;
+	background-color: transparent;
+	color: white;
+	border: none;
+	padding: 1rem;
+	line-height: 2rem;
+}
+.password-gen .custom-button {
+	width: 10%;
+}
+.submitAndCancel {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
+.SubmitButton,
+.CancelButton {
+	width: 40%;
+	border-radius: 5rem;
+	outline: none;
+	border: none;
+	height: 3rem;
+	color: #fff;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
+.SubmitButton {
+	background-color: #187355;
+}
+.CancelButton {
+	background-color: rgb(146, 12, 12);
+}
+.password-gen .icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
+	width: 15%;
+	height: 100%;
+	color: #1d6751;
+	background-color: #fff;
+	border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
