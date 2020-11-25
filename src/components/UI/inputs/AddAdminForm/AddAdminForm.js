@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Spinner from '../../Spinners/Spinner';
 import { AuthContext } from '../../../../Auth/context/AuthContext';
+import { ProjectFireStore } from '../../../../FireBase/fireBase'
+import { DashboardContext } from '../../../Dashboards/MainAdminDashboard/MainAdminDashBoard';
 import './AddAdminForm.css'
 
 const AddAdminForm = () => {
@@ -12,17 +14,28 @@ const AddAdminForm = () => {
     const [loading, setLoading] = useState(false);
     const signup = useContext(AuthContext).signup;
     const currentUser = useContext(AuthContext).currentUser;
+    const { currentCollege } = useContext(DashboardContext);
+    console.log(currentCollege);
     const handleSubmit = async (e) => {
         e.preventDefault();
         let emailValue = email;
         let passwordValue = password;
+        console.log(emailValue);
         try {
             setError('');
             setLoading(true);
             await signup(emailValue, passwordValue);
+
         } catch {
             setError('failed');
         }
+        ProjectFireStore
+            .collection('Admins')
+            .doc(emailValue)
+            .set({ Name: emailValue, collegeName: currentCollege })
+            .then(res => setLoading(false))
+            .catch(err => setError(err));
+
         setLoading(false);
     }
     const onCancel = () => {

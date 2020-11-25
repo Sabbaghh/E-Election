@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import InnerNav from '../../UI/InnerNav/InnerNav';
 import AdminsNavBar from '../../UI/AdminsNavBar/AdminsNavBar';
 import logo from '../../../assests/logo/e-election-logo.png';
