@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import { AuthContext } from '../../Auth/context/AuthContext'
+import { ProjectFireStore } from '../../FireBase/fireBase'
 import SecondDashboard from '../../components/Dashboards/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const currentUser = localStorage.getItem('currentUser');
-    const [isMainAdmin, setIsMainAdmin] = useState(false);
+    const [isMainAdmin, setIsMainAdmin] = useState('');
+    const currentUser = useContext(AuthContext).currentUser;
 
     useEffect(() => {
-        if (currentUser) {
-            axios.get(`https://e-election-e4023.firebaseio.com/admins/${(currentUser).split(".")[0]}/auth.json`)
-                .then(res => {
-                    setIsMainAdmin(res.data);
-                }).catch(err => console.log(err));
+        const getAdminType = () => {
+            if (currentUser) {
+                ProjectFireStore
+                    .collection('Admins')
+                    .doc(currentUser.email).get()
+                    .then(res => {
+                        setIsMainAdmin(res.data()['adminType']);
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                return <Redirect to='/admin' />
+            }
         }
-    }, [currentUser])
+        return getAdminType();
+    }, [isMainAdmin, currentUser])
 
 
     return (
@@ -22,12 +32,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             {...rest}
             render={
                 props => {
-                    // change it later sabbagh
-                    if (currentUser) {
-                        return isMainAdmin ?
-                            <Component {...props} /> : <SecondDashboard {...props} />
-                    } else {
-                        return <Redirect to='/admin' />
+                    if (isMainAdmin) {
+                        if (isMainAdmin === 'MainAdmin') {
+                            return <Component {...props} />
+                        } else if (isMainAdmin === 'secondaryAdmin') {
+                            return <SecondDashboard {...props} />
+                        } else {
+                            return <Redirect to='/admin' />
+                        }
                     }
                 }
             }
