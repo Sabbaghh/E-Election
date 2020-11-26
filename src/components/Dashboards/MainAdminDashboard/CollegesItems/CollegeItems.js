@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { DashboardContext } from '../MainAdminDashBoard';
 import AddAdminForm from '../../../UI/inputs/AddAdminForm/AddAdminForm'
 import './CollegeItems.css'
@@ -11,7 +11,6 @@ const CollegeItems = () => {
     return (
         <>
             <div className='college-items-conatiner'>
-                {console.log(currentCollege)}
                 <div className='item'>
                     <div className='icon' > <i className="fas fa-users-cog"></i> </div>
                     <div className='itemName'>{currentCollege} FACULTY ADMIN</div>

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import SecondDashboard from '../../components/Dashboards/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
 
