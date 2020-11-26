@@ -1,20 +1,15 @@
 import React, { useState, useRef, useContext } from 'react';
 import './LoginPage.css';
-//vectors
 import LoginAvatar from '../../assests/adminPanel/login.png';
 import forgetAvatarfrom from '../../assests/adminPanel/forget-pass.png';
-//comps
 import NavLinks from '../NavLinks/NavLinks';
 import LoginForm from './LoginForm/LoginForm';
-//animation
 import { SimpleFade } from '../../Animation/simpleFade';
 import { motion } from 'framer-motion';
-
 import { AuthContext } from '../context/AuthContext';
-//routers
 import { useHistory } from 'react-router-dom';
-//UI
 import Spinner from '../../components/UI/Backdrop/Backdrop';
+import { SecondaryAdmins } from '../../FireBase/SecondaryAdminAuth'
 
 const LoginPage = () => {
     const [toggle, setToggle] = useState(true);
@@ -24,8 +19,8 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const login = useContext(AuthContext).login;
+    const setCurrentUser = useContext(AuthContext).setCurrentUser;
     const resetPassword = useContext(AuthContext).resetPassword;
-
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
@@ -37,7 +32,8 @@ const LoginPage = () => {
             await login(emailValue, passwordValue);
             history.push('/dashboard');
         } catch {
-            setError('failed to log in');
+            //if you can't find email for main admin look for secondary admins
+            loginSecondaryAdmin(emailValue, passwordValue);
         }
         setLoading(false);
     }
@@ -50,8 +46,35 @@ const LoginPage = () => {
             setLoading(true);
             await resetPassword(emailValue);
         } catch {
-            setError('fail to reset password')
+            //if you can't find email for main admin look for secondary admins
+            resetSecondaryAdmin(emailValue);
         }
+        setLoading(false);
+    }
+
+    //working on secondary admin app
+
+    const loginSecondaryAdmin = (emailValue, passwordValue) => {
+        SecondaryAdmins.signInWithEmailAndPassword(emailValue, passwordValue)
+            .then((res) => {
+                SecondaryAdmins.onAuthStateChanged((user) => {
+                    setCurrentUser(user);
+                });
+                setError('');
+                setLoading(true);
+                history.push('/dashboard');
+            })
+            .catch(err => setError(err));
+        setLoading(false);
+    }
+
+    const resetSecondaryAdmin = (emailValue) => {
+        SecondaryAdmins.sendPasswordResetEmail(emailValue)
+            .then(() => {
+                setError('');
+                setLoading(true);
+            })
+            .catch(err => setError(err));
         setLoading(false);
     }
 
