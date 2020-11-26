@@ -12,15 +12,16 @@ const AddAdminForm = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [currentData, setCurrentData] = useState('');
     const signup = useContext(AuthContext).signup;
-    const currentUser = useContext(AuthContext).currentUser;
     const { currentCollege } = useContext(DashboardContext);
-    console.log(currentCollege);
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         let emailValue = email;
         let passwordValue = password;
-        console.log(emailValue);
+        //signup with firebase Auth
         try {
             setError('');
             setLoading(true);
@@ -29,28 +30,49 @@ const AddAdminForm = () => {
         } catch {
             setError('failed');
         }
+        //save emails to admins collections
         ProjectFireStore
             .collection('Admins')
             .doc(emailValue)
             .set({ Name: emailValue, collegeName: currentCollege })
+            .then(() => setLoading(false))
+            .catch(err => setError(err));
+        //save AdminEmail to ech college
+        ProjectFireStore
+            .collection('Collage')
+            .doc(currentCollege)
+            .set({ ...currentData, AdminEmail: emailValue })
             .then(res => setLoading(false))
             .catch(err => setError(err));
-
         setLoading(false);
     }
-    const onCancel = () => {
-        setEmail('');
-        setPassword('');
-        setToggle(false);
-    }
+
+
     useEffect(() => {
-        console.log(currentUser);
-    })
+        //get the lost data to save them from getting lost &
+        //set the email into email hook if it exists in dataBase
+        ProjectFireStore
+            .collection('Collage')
+            .doc(currentCollege)
+            .get().then(res => {
+                setCurrentData(res.data())
+                if (res.data()["AdminEmail"]) {
+                    setEmail(res.data()['AdminEmail']);
+                    setToggle(false);
+                } else {
+                    setToggle(true);
+                    setEmail('');
+                    setPassword('');
+                }
+            });
+    }, [currentCollege])
 
     return (
         <div className='AddAdminForm'>
             <form onSubmit={(e) => handleSubmit(e)}>
+
                 {loading && <Spinner />}
+
                 <div className='Add-admin-email'>
                     <div className='icon'>
                         <i className="fas fa-users-cog"></i>
@@ -60,37 +82,51 @@ const AddAdminForm = () => {
                         type="text"
                         value={email}
                         disabled={!toggle} />
-                    <div
-                        className='custom-button btn'
-                        onClick={() => setToggle(!toggle)}>
-                        <i className="fas fa-edit"></i></div>
+                    {/* tou can't edit if you have no email to edit! */}
+                    {
+                        !toggle &&
+                        <div
+                            className='custom-button btn'
+                            onClick={() =>
+                                email ?
+                                    setToggle(!toggle) :
+                                    alert('please enter email and password')}>
+                            <i className="fas fa-edit"></i></div>
+                    }
                 </div>
-
+                {/* if you already have an account setup you dont need password input nor buttons */}
                 {
                     toggle &&
-                    <div className='password-gen'>
-                        <div className='icon'>
-                            <i className="fas fa-key"></i>
+                    <>
+                        <div className='password-gen'>
+                            <div className='icon'>
+                                <i className="fas fa-key"></i>
+                            </div>
+                            <input
+                                onChange={(e) => { setPassword(e.target.value) }}
+                                type={show ? 'text' : 'password'}
+                                value={password} />
+                            <div className='custom-button btn'
+                                onClick={() => setShow(!show)}>
+                                <i className="fas fa-eye-slash"></i>
+                            </div>
                         </div>
-                        <input
-                            onChange={(e) => { setPassword(e.target.value) }}
-                            type={show ? 'text' : 'password'}
-                            value={password} />
-                        <div className='custom-button btn'
-                            onClick={() => setShow(!show)}>
-                            <i className="fas fa-eye-slash"></i>
+
+                        <div className='submitAndCancel'>
+                            <button className='SubmitButton'> SAVE</button>
+                            <div
+                                onClick={() =>
+                                    email && password ?
+                                        setToggle(false) :
+                                        alert('Please enter Email and Password')}
+                                className='CancelButton btn'> CANCEL</div>
                         </div>
-                    </div>
+                    </>
                 }
-                <div className='submitAndCancel'>
-                    <button className='SubmitButton'> SAVE</button>
-                    <div onClick={() => onCancel()} className='CancelButton btn'> CANCEL</div>
-                </div>
+
                 {error && <h1 style={{ margin: '10px', color: '#d62828' }}>{error}</h1>}
-
             </form>
-        </div>
-
+        </div >
     );
 };
 
