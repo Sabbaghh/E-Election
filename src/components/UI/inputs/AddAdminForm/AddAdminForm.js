@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Spinner from '../../Spinners/Spinner';
-import { AuthContext } from '../../../../Auth/context/AuthContext';
 import { ProjectFireStore } from '../../../../FireBase/fireBase'
 import { DashboardContext } from '../../../Dashboards/MainAdminDashboard/MainAdminDashBoard';
-import './AddAdminForm.css'
+import { SecondaryAdmins } from '../../../../FireBase/SecondaryAdminAuth';
+import './AddAdminForm.css';
 
 const AddAdminForm = () => {
     const [toggle, setToggle] = useState(false);
@@ -13,36 +13,43 @@ const AddAdminForm = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [currentData, setCurrentData] = useState('');
-    const signup = useContext(AuthContext).signup;
     const { currentCollege } = useContext(DashboardContext);
 
-
-    const handleSubmit = async (e) => {
+    const CreateNewSecondaryAdmin = (email, PWD) => {
+        return SecondaryAdmins.createUserWithEmailAndPassword(email, PWD);
+    }
+    const handleSubmit = (e) => {
         e.preventDefault();
         let emailValue = email;
         let passwordValue = password;
         //signup with firebase Auth
-        try {
-            setError('');
-            setLoading(true);
-            await signup(emailValue, passwordValue);
-
-        } catch {
-            setError('failed');
-        }
-        //save emails to admins collections
+        setError('');
+        setLoading(true);
+        CreateNewSecondaryAdmin(emailValue, passwordValue)
+            .then(() => {
+                setLoading(false);
+                setLoading('');
+            }).catch(err => setError(err))
+        // save emails to admins collections
         ProjectFireStore
             .collection('Admins')
             .doc(emailValue)
-            .set({ Name: emailValue, collegeName: currentCollege })
-            .then(() => setLoading(false))
+            .set({ Name: emailValue, collegeName: currentCollege, adminType: 'secondaryAdmin' })
+            .then(() => {
+                setLoading(false);
+                setError('');
+            })
             .catch(err => setError(err));
-        //save AdminEmail to ech college
+        //save AdminEmail to each college
         ProjectFireStore
             .collection('Collage')
             .doc(currentCollege)
             .set({ ...currentData, AdminEmail: emailValue })
-            .then(res => setLoading(false))
+            .then(res => {
+                setLoading(false)
+                setError('');
+                setToggle(false);
+            })
             .catch(err => setError(err));
         setLoading(false);
     }
@@ -55,7 +62,7 @@ const AddAdminForm = () => {
             .collection('Collage')
             .doc(currentCollege)
             .get().then(res => {
-                setCurrentData(res.data())
+                setCurrentData(res.data());
                 if (res.data()["AdminEmail"]) {
                     setEmail(res.data()['AdminEmail']);
                     setToggle(false);
@@ -70,9 +77,7 @@ const AddAdminForm = () => {
     return (
         <div className='AddAdminForm'>
             <form onSubmit={(e) => handleSubmit(e)}>
-
                 {loading && <Spinner />}
-
                 <div className='Add-admin-email'>
                     <div className='icon'>
                         <i className="fas fa-users-cog"></i>
@@ -111,7 +116,6 @@ const AddAdminForm = () => {
                                 <i className="fas fa-eye-slash"></i>
                             </div>
                         </div>
-
                         <div className='submitAndCancel'>
                             <button className='SubmitButton'> SAVE</button>
                             <div

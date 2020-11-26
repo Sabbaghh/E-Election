@@ -17,18 +17,21 @@ const Colleges = () => {
 
 
     useEffect(() => {
-        let collegesList = [];
-        setLoading(true);
-        ProjectFireStore.collection('Collage').get()
-            .then(res => {
-                res.docs.forEach(doc => {
-                    collegesList.push(doc.data()[`Name`]);
+        const getColleges = () => {
+            let collegesList = [];
+            setLoading(true);
+            ProjectFireStore.collection('Collage').get()
+                .then(res => {
+                    res.docs.forEach(doc => {
+                        collegesList.push(doc.data()[`Name`]);
+                    })
+                    setColleges(collegesList);
+                    setLoading(false);
+                }).catch(err => {
+                    setError(err);
                 })
-                setColleges(collegesList);
-                setLoading(false);
-            }).catch(err => {
-                setError(err);
-            })
+        }
+        return getColleges();
     }, []);
 
     return (

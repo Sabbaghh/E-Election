@@ -27,16 +27,13 @@ const Dashboard = () => {
         setCurrentCollege,
         currentCollege
     }
-    const returnToDefualtPage = () => {
-        setCurrentCollege('');
-    }
     return (
         <DashboardContext.Provider value={value}>
             <div className='MainAdminDashboard'>
                 <AdminsNavBar>
                     <InnerNav style={{ width: '6.5rem', backgroundColor: '#1b1e27', zIndex: 2 }} >
                         <LogoElement src={logo} alt="app-logo" width={'5rem'} height={'5rem'}
-                            onfunction={() => returnToDefualtPage()} />
+                            onfunction={() => setCurrentCollege('')} />
                         <ProfileSetting />
                     </InnerNav>
                     <InnerNav style={{ width: '18.5rem', backgroundColor: '#222632' }}>
