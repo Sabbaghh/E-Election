@@ -3,6 +3,7 @@ import Spinner from '../../../../UI/Spinners/Spinner';
 import { ProjectFireStore } from '../../../../../FireBase/fireBase'
 import { DashboardContext } from '../../../Dashboards/MainAdminDashboard/MainAdminDashBoard';
 import { SecondaryAdmins } from '../../../../../FireBase/SecondaryAdminAuth';
+import AddSeatsForAdmin from './AddSeatsForEachAdmin/AddSeatsForEachAdmin'
 import './AddAdminForm.css';
 
 const AddAdminForm = () => {
@@ -14,6 +15,7 @@ const AddAdminForm = () => {
     const [loading, setLoading] = useState(false);
     const [currentData, setCurrentData] = useState('');
     const { currentCollege } = useContext(DashboardContext);
+    const [active, setActive] = useState(false);
     const CreateNewSecondaryAdmin = (email, PWD) => {
         return SecondaryAdmins.createUserWithEmailAndPassword(email, PWD);
     }
@@ -72,38 +74,48 @@ const AddAdminForm = () => {
                 }
             });
     }, [currentCollege])
-
-    const EditEmail = () => {
-
-    }
-
     return (
         <div className='AddAdminForm'>
             <form onSubmit={(e) => handleSubmit(e)}>
                 {loading && <Spinner />}
-                <div className='Add-admin-email'>
-                    <div className='icon'>
-                        <i className="fas fa-users-cog"></i>
-                    </div>
-                    <input
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        value={email}
-                        disabled={!toggle}
-                        required />
-                    {/* tou can't edit if you have no email to edit! */}
-                    {
-                        !toggle &&
-                        <div
-                            className='custom-button btn'
-                            onClick={() =>
-                                email ?
-                                    setToggle(!toggle) :
-                                    alert('please enter email and password')}>
-                            <i className="fas fa-edit"></i></div>
-                    }
-                </div>
-                {/* if you already have an account setup you dont need password input nor buttons */}
+                {
+                    !toggle &&
+                    <ul className='Navigation-AdminEmail-Seats'>
+                        <li onClick={() => setActive(false)}
+                            className={!active && 'active'}>ADD ADMIN</li>
+                        <li onClick={() => setActive(true)}
+                            className={active && 'active'}>ADD SEATS</li>
+                    </ul>
+                }
+                {
+                    !active ? (
+                        <div className='Add-admin-email'>
+                            <div className='icon'>
+                                <i className="fas fa-users-cog"></i>
+                            </div>
+                            <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                type="email"
+                                value={email}
+                                disabled={!toggle}
+                                required />
+                            {/* tou can't edit if you have no email to edit! */}
+                            {
+                                !toggle &&
+                                <div
+                                    className='custom-button btn'
+                                    onClick={() =>
+                                        email ?
+                                            setToggle(!toggle) :
+                                            alert('please enter email and password')}>
+                                    <i className="fas fa-edit"></i></div>
+                            }
+                        </div>
+                    ) : (
+                            <AddSeatsForAdmin />
+                        )
+                }
+                {/* if you already have an account setup you dont need passwordinput nor buttons */}
                 {
                     toggle &&
                     <>
@@ -132,11 +144,9 @@ const AddAdminForm = () => {
                         </div>
                     </>
                 }
-
                 {error && <h1 style={{ margin: '10px', color: '#d62828' }}>{error}</h1>}
             </form>
         </div >
     );
 };
-
 export default AddAdminForm;
