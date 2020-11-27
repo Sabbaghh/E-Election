@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react';
-import Spinner from '../../../UI/Spinners/Spinner';
-import logo from '../../../../assests/logo/e-election-logo.png'
+import Spinner from '../../../../UI/Spinners/Spinner';
+import logo from '../../../../../assests/logo/e-election-logo.png'
 import { DashboardContext } from '../MainAdminDashBoard';
-import { ProjectFireStore } from '../../../../FireBase/fireBase';
-import LogoElemnt from '../../../UI/LogoElement/logoElement'
+import { ProjectFireStore } from '../../../../../FireBase/fireBase';
+import LogoElemnt from '../../../../UI/LogoElement/logoElement'
 
 const Colleges = () => {
     const {

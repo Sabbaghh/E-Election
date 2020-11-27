@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { DashboardContext } from '../MainAdminDashBoard';
-import AddAdminForm from '../../../UI/inputs/AddAdminForm/AddAdminForm'
+import { DashboardContext } from '../../Pages/Dashboards/MainAdminDashboard/MainAdminDashBoard';
+import AddAdminForm from '../../../components/Pages/Dashboards/MainAdminDashboard/AddAdminForm/AddAdminForm'
 import './CollegeItems.css'
 
 const CollegeItems = () => {

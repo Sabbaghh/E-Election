@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { WhileHover } from '../../Animation/ScaleonHover';
+import { WhileHover } from '../../../Animation/ScaleonHover';
 import './NavLinks.css'
 
 const NavLinks = (props) => {

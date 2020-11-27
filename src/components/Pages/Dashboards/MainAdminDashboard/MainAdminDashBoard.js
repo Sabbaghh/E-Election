@@ -1,15 +1,15 @@
-import React, { useState, createContext, useEffect } from 'react';
-import InnerNav from '../../UI/InnerNav/InnerNav';
-import AdminsNavBar from '../../UI/AdminsNavBar/AdminsNavBar';
-import logo from '../../../assests/logo/e-election-logo.png';
-import LogoElement from '../../UI/LogoElement/logoElement';
-import ProfileSetting from '../../UI/ProfileSettings/ProfileSetting';
-import WelcomeMsg from '../../UI/WelcomeMsg/WelcomeMsg';
-import SearchInput from '../../UI/inputs/SearchInput/SearchInput';
+import React, { useState, createContext } from 'react';
+import InnerNav from '../../../UI/InnerNav/InnerNav';
+import AdminsNavBar from '../../../UI/AdminsNavBar/AdminsNavBar';
+import logo from '../../../../assests/logo/e-election-logo.png';
+import LogoElement from '../../../UI/LogoElement/logoElement';
+import ProfileSetting from '../../../UI/ProfileSettings/ProfileSetting';
+import WelcomeMsg from '../../../UI/WelcomeMsg/WelcomeMsg';
+import SearchInput from '../../../UI/inputs/SearchInput/SearchInput';
 import Colleges from './Colleges/Colleges';
-import CollegeInformations from '../../UI/CollegeInformations/CollegeInformations';
-import CollegeItems from './CollegesItems/CollegeItems';
-import DefaultPage from '../../UI/defualtPage/DefualtPage';
+import CollegeInformations from '../../../UI/CollegeInformationsContainer/CollegeInformationsContainer';
+import CollegeItems from '../../../UI/CollegesItems/CollegeItems';
+import DefaultPage from '../../defualtPage/DefualtPage';
 import './MainAdmin.css';
 export const DashboardContext = createContext();
 const Dashboard = () => {

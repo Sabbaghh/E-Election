@@ -1,5 +1,5 @@
 import React from 'react';
-import './CollegeInformations.css'
+import './CollegeInformationsContainer.css'
 
 const CollegeInformations = ({ children }) => {
     return (

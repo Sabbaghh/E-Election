@@ -5,7 +5,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url('../../assests/adminPanel/bg.jpg');
+	background-image: url('../../../assests/adminPanel/bg.jpg');
 	background-size: cover;
 }
 .loginPage {

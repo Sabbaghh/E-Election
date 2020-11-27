@@ -6,7 +6,7 @@
 	background-color: #85575b;
 	width: 90%;
 	height: 70%;
-	background-image: url('../../../assests/adminPanel/bg.jpg');
+	background-image: url('../../../../assests/adminPanel/bg.jpg');
 	/* border-bottom-right-radius: 5rem; */
 }
 .loginForm label {

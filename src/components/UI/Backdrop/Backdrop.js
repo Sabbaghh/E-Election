@@ -1,12 +1,12 @@
 import React from 'react';
-import './BackDrop.css';
-import Spinner from '../Spinners/Spinner';
-const Backdrop = () => {
+import './BackdropSpinner/BackDropSpinner.css'
+
+const BackDrop = ({ children }) => {
     return (
         <div className='BackDrop'>
-            <Spinner />
+            {children}
         </div>
     );
 };
 
-export default Backdrop;
+export default BackDrop;

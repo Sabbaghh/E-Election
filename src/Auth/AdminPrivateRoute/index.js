@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 // import axios from 'axios';
 import { AuthContext } from '../../Auth/context/AuthContext'
 import { ProjectFireStore } from '../../FireBase/fireBase'
-import SecondDashboard from '../../components/Dashboards/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
+import SecondDashboard from '../../components/Pages/Dashboards/SecondaryAdminsDashboard/SecondaryAdminsDashboard';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const [isMainAdmin, setIsMainAdmin] = useState('');

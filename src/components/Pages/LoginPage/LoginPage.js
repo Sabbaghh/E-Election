@@ -1,15 +1,15 @@
 import React, { useState, useRef, useContext } from 'react';
 import './LoginPage.css';
-import LoginAvatar from '../../assests/adminPanel/login.png';
-import forgetAvatarfrom from '../../assests/adminPanel/forget-pass.png';
-import NavLinks from '../NavLinks/NavLinks';
+import LoginAvatar from '../../../assests/adminPanel/login.png';
+import forgetAvatarfrom from '../../../assests/adminPanel/forget-pass.png';
+import NavLinks from '../../UI/LoginAndRest/NavLinks';
 import LoginForm from './LoginForm/LoginForm';
-import { SimpleFade } from '../../Animation/simpleFade';
+import { SimpleFade } from '../../../Animation/simpleFade';
 import { motion } from 'framer-motion';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../../Auth/context/AuthContext';
 import { useHistory } from 'react-router-dom';
-import Spinner from '../../components/UI/Backdrop/Backdrop';
-import { SecondaryAdmins } from '../../FireBase/SecondaryAdminAuth'
+import Spinner from '../../UI/BackDrop/BackdropSpinner/BackdropSpinner';
+import { SecondaryAdmins } from '../../../FireBase/SecondaryAdminAuth'
 
 const LoginPage = () => {
     const [toggle, setToggle] = useState(true);

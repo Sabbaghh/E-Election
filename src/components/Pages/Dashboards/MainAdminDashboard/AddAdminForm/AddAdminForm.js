@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Spinner from '../../Spinners/Spinner';
-import { ProjectFireStore } from '../../../../FireBase/fireBase'
+import Spinner from '../../../../UI/Spinners/Spinner';
+import { ProjectFireStore } from '../../../../../FireBase/fireBase'
 import { DashboardContext } from '../../../Dashboards/MainAdminDashboard/MainAdminDashBoard';
-import { SecondaryAdmins } from '../../../../FireBase/SecondaryAdminAuth';
+import { SecondaryAdmins } from '../../../../../FireBase/SecondaryAdminAuth';
 import './AddAdminForm.css';
 
 const AddAdminForm = () => {
@@ -14,7 +14,6 @@ const AddAdminForm = () => {
     const [loading, setLoading] = useState(false);
     const [currentData, setCurrentData] = useState('');
     const { currentCollege } = useContext(DashboardContext);
-
     const CreateNewSecondaryAdmin = (email, PWD) => {
         return SecondaryAdmins.createUserWithEmailAndPassword(email, PWD);
     }
@@ -74,6 +73,10 @@ const AddAdminForm = () => {
             });
     }, [currentCollege])
 
+    const EditEmail = () => {
+
+    }
+
     return (
         <div className='AddAdminForm'>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -84,9 +87,10 @@ const AddAdminForm = () => {
                     </div>
                     <input
                         onChange={(e) => setEmail(e.target.value)}
-                        type="text"
+                        type="email"
                         value={email}
-                        disabled={!toggle} />
+                        disabled={!toggle}
+                        required />
                     {/* tou can't edit if you have no email to edit! */}
                     {
                         !toggle &&
@@ -110,7 +114,8 @@ const AddAdminForm = () => {
                             <input
                                 onChange={(e) => { setPassword(e.target.value) }}
                                 type={show ? 'text' : 'password'}
-                                value={password} />
+                                value={password}
+                                required />
                             <div className='custom-button btn'
                                 onClick={() => setShow(!show)}>
                                 <i className="fas fa-eye-slash"></i>
@@ -120,7 +125,7 @@ const AddAdminForm = () => {
                             <button className='SubmitButton'> SAVE</button>
                             <div
                                 onClick={() =>
-                                    email && password ?
+                                    email ?
                                         setToggle(false) :
                                         alert('Please enter Email and Password')}
                                 className='CancelButton btn'> CANCEL</div>
