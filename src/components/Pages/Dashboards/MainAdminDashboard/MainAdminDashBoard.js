@@ -10,6 +10,7 @@ import Colleges from './Colleges/Colleges';
 import CollegeInformations from '../../../UI/CollegeInformationsContainer/CollegeInformationsContainer';
 import CollegeItems from '../../../UI/CollegesItems/CollegeItems';
 import DefaultPage from '../../defualtPage/DefualtPage';
+import ConfigPage from './ConfigPage/ConfigPage'
 import './MainAdmin.css';
 export const DashboardContext = createContext();
 const Dashboard = () => {
@@ -30,7 +31,7 @@ const Dashboard = () => {
     const renderCurrentElement = () => {
         switch (currentCollege) {
             case 'config':
-                return <div>config</div>
+                return <ConfigPage />
             case 'profile':
                 return <div>profile</div>
             case '':

@@ -7,7 +7,6 @@
 	height: 100vh;
 	display: flex;
 	flex-direction: row;
-	background-color: slateblue;
 }
 .inner-sm-nav {
 	height: 100vh;
@@ -29,7 +28,6 @@
 }
 
 .logo {
-	background-color: rosybrown;
 	overflow: hidden;
 	margin-top: 1rem;
 	margin-bottom: 1rem;
@@ -101,4 +99,75 @@
 .college-container div {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 	text-align: end;
+}
+
+/* configpage */
+
+.config-page {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.config-page form {
+	width: 50%;
+	height: 70%;
+	border: 1px solid black;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 2rem;
+}
+
+.config-page div {
+	color: #fff;
+	margin-top: 1rem;
+	width: 100%;
+}
+.config-page input {
+	width: 10rem;
+	height: 3rem;
+	font-size: 1rem;
+	border: 1px solid black;
+	border-left: none;
+	padding: 1rem;
+	background-color: transparent;
+	color: #fff;
+}
+.config-page .icon {
+	width: 5rem;
+	height: 3rem;
+	font-size: 2rem;
+	background-color: #fff;
+	color: #252832;
+	line-height: 3rem;
+	border-right: 1px solid #252832;
+	margin: 0;
+}
+.config-page .btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.config-page .submitAndCancel {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	margin-top: 1rem;
+}
+.config-page .SubmitButton,
+.config-page .CancelButton {
+	width: 40%;
+	border-radius: 5rem;
+	outline: none;
+	border: none;
+	height: 3rem;
+	color: #fff;
+	font-size: 1.5rem;
+	cursor: pointer;
+	margin-right: 1rem;
+	margin-left: 1rem;
+	margin-top: 0;
 }

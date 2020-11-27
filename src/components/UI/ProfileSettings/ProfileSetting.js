@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DashboardContext } from '../../Pages/Dashboards/MainAdminDashboard/MainAdminDashBoard';
 
 const ProfileSetting = () => {
+    const { setCurrentCollege } = useContext(DashboardContext);
     return (
         <div className='setting-conatiner AnyItem-container'>
-            <div>
+            <div onClick={() => setCurrentCollege('profile')}>
                 <i className="fas fa-user"></i>
             </div>
-            <div>
+            <div onClick={() => setCurrentCollege('config')}>
                 <i className="fas fa-cog"></i>
             </div>
         </div>
