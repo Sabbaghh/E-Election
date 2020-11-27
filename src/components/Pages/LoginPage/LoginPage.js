@@ -54,28 +54,33 @@ const LoginPage = () => {
 
     //working on secondary admin app
 
-    const loginSecondaryAdmin = (emailValue, passwordValue) => {
-        SecondaryAdmins.signInWithEmailAndPassword(emailValue, passwordValue)
-            .then((res) => {
-                SecondaryAdmins.onAuthStateChanged((user) => {
-                    setCurrentUser(user);
-                });
-                setError('');
-                setLoading(true);
-                history.push('/dashboard');
-            })
-            .catch(err => setError(err));
-        setLoading(false);
+    const loginSecondaryAdmin = async (emailValue, passwordValue) => {
+        await SecondaryAdmins.signInWithEmailAndPassword(emailValue, passwordValue)
+        try {
+            SecondaryAdmins.onAuthStateChanged((user) => {
+                setCurrentUser(user);
+            });
+            setError('');
+            setLoading(true);
+            history.push('/dashboard');
+        } catch {
+            alert('no')
+            setError('Failed to login')
+            setLoading(false);
+        }
     }
 
-    const resetSecondaryAdmin = (emailValue) => {
-        SecondaryAdmins.sendPasswordResetEmail(emailValue)
-            .then(() => {
-                setError('');
-                setLoading(true);
-            })
-            .catch(err => setError(err));
-        setLoading(false);
+    const resetSecondaryAdmin = async (emailValue) => {
+        await SecondaryAdmins.sendPasswordResetEmail(emailValue)
+        try {
+            setError('');
+            setLoading(true);
+        } catch {
+            alert('no');
+            setError('Failed to reset password')
+            setLoading(false);
+        }
+
     }
 
     return (
