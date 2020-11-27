@@ -27,6 +27,18 @@ const Dashboard = () => {
         setCurrentCollege,
         currentCollege
     }
+    const renderCurrentElement = () => {
+        switch (currentCollege) {
+            case 'config':
+                return <div>config</div>
+            case 'profile':
+                return <div>profile</div>
+            case '':
+                return <DefaultPage />
+            default:
+                return <CollegeItems />
+        }
+    }
     return (
         <DashboardContext.Provider value={value}>
             <div className='MainAdminDashboard'>
@@ -43,7 +55,7 @@ const Dashboard = () => {
                     </InnerNav>
                 </AdminsNavBar>
                 <CollegeInformations>
-                    {currentCollege ? <CollegeItems /> : <DefaultPage />}
+                    {renderCurrentElement()}
                 </CollegeInformations>
             </div >
         </DashboardContext.Provider >
