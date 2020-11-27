@@ -1,9 +1,9 @@
 import React from 'react';
-import { AuthProvider } from './Auth/context/AuthContext'
-import LoginPage from './components/Pages/LoginPage/LoginPage';
-import DashBoard from './components/Pages/Dashboards/MainAdminDashboard/MainAdminDashBoard'
+import { AuthProvider } from './Contexts/AuthContext'
+import LoginPage from './LoginPage/LoginPage';
+import DashBoard from './MainAdminDashboard/MainAdminDashBoard'
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './Auth/AdminPrivateRoute'
+import PrivateRoute from './PrivateRouter/AdminPrivateRouter'
 
 function App() {
   return (
