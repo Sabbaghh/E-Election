@@ -9,7 +9,6 @@ const AddSeatsForEachAdmin = () => {
                 </div>
                 <input type="number" min='1' max='6' />
             </div>
-
             <div className='submitAndCancel'>
                 <button className='SubmitButton'> SAVE</button>
                 <div className='CancelButton btn'> CANCEL</div>
