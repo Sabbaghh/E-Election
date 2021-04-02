@@ -1,12 +1,8 @@
-import React from 'react';
-import './css/BackdropSpinner/BackDropSpinner.css'
+import React from 'react'
+import './css/BackDropSpinner.css'
 
 const BackDrop = ({ children }) => {
-    return (
-        <div className='BackDrop'>
-            {children}
-        </div>
-    );
-};
+	return <div className='BackDrop'>{children}</div>
+}
 
-export default BackDrop;
+export default BackDrop

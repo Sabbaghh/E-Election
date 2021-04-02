@@ -1,4 +1,51 @@
 .CandidatesPage{
-    overflow-y: scroll;
     height:100vh;
+    overflow:hidden;
+}
+.AddCandidateForm{
+    background-color:#FFF;
+    width:60%;
+    height:80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:2rem;
+    overflow-y: auto;
+    position: relative;
+    .closeButton{
+        position:absolute;
+        right: 10px;
+        top: 0;
+    }
+    div{
+        margin: 0.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+        .controlButtons{
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        align-items:center;
+        button{
+            margin-left:0.5rem !important;
+        }
+        }
+    }
+    .avatarContainer{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 50%;
+        }
+    }
+}
+.SureMsg{
+    border-radius: 2rem;
+    background-color: #FFF;
+    width:20rem;
+    height:10rem;
 }

@@ -4,6 +4,8 @@ import WorkSpace from './WorkSpace'
 import AddNewList from './AddNewList'
 import CandidatesPage from './CandidatesPage'
 import DefualtPage from './DefualtPage'
+import BackDrop from '../Shared/BackDrop'
+import BackDropSpinner from '../Shared/BackdropSpinner'
 
 import './styles/SecondaryAdmin.scss'
 
@@ -26,6 +28,7 @@ const SecondDashboard = () => {
 		<div className='SecondaryAdmin'>
 			<NavBar renderCurrentPage={renderCurrentPage} />
 			<WorkSpace>{currentPage}</WorkSpace>
+			{/* <BackDropSpinner /> */}
 		</div>
 	)
 }
