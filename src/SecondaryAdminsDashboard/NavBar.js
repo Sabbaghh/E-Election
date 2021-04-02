@@ -41,7 +41,7 @@ const NavBar = ({ renderCurrentPage }) => (
 				<span>HU ADMIN PORTAL</span>
 			</div>
 			<Container className='manifestContainer'>
-				<Manifest />
+				<Manifest renderCurrentPage={renderCurrentPage} />
 			</Container>
 		</Container>
 	</Grid>

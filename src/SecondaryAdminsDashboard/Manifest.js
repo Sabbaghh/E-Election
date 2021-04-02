@@ -1,10 +1,13 @@
 import React from 'react'
 import Logo from '../assests/logo/e-election-logo.png'
 
-const Manifest = () => {
+const Manifest = ({ renderCurrentPage }) => {
 	return (
 		<>
-			<div className='manifest'>
+			<div
+				className='manifest'
+				onClick={() => renderCurrentPage('CandidatesPage')}
+			>
 				<div className='logoContainer'>
 					<img src={Logo} alt='Logo' />
 				</div>
