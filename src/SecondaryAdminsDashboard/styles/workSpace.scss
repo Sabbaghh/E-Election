@@ -1,0 +1,30 @@
+.workSpace{
+    width: 80% !important;
+    display: flex !important;
+    justify-content:center;
+    align-items: center;
+    color :#000;
+     .AddNewList{
+            width:50%;
+            height:50% !important;
+            display: flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            height: 20vh;
+            border: 1px solid #000;
+            .input{
+                width:90%;
+                margin-top: 1rem;
+                color: #FFF;
+            }}
+}
+.logoContainer{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    img{
+        width:50%;
+        border-radius:50%;
+    }
+}

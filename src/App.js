@@ -11,12 +11,13 @@ function App() {
 		<AuthProvider>
 			<Switch>
 				<Route path='/admin' component={LoginPage} />
+				<Route path='/dev' component={DashBoard2} />
 				<MainAdminPrivateRoute exact path='/dashboard' component={DashBoard} />
-				<MainAdminPrivateRoute
+				{/* <MainAdminPrivateRoute
 					exact
 					path='/dashboard2'
 					component={DashBoard2}
-				/>
+				/> */}
 			</Switch>
 		</AuthProvider>
 	)

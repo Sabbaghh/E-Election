@@ -1,11 +1,15 @@
-import React from 'react';
+import React from 'react'
+import NavBar from './NavBar'
+import WorkSpace from './WorkSpace'
+import './styles/SecondaryAdmin.scss'
 
 const SecondDashboard = () => {
-    return (
-        <div>
-            secondary admin dashboard
-        </div>
-    );
-};
+	return (
+		<div className='SecondaryAdmin'>
+			<NavBar />
+			<WorkSpace />
+		</div>
+	)
+}
 
-export default SecondDashboard;
+export default SecondDashboard
