@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import BackDrop from '../Shared/BackDrop'
 import CloseIcon from '@material-ui/icons/Close'
+import AddNewCandidate from './AddNewCandidate'
 import './styles/CandidatesPage.scss'
 const imgdemo = 'https://www.w3schools.com/howto/img_avatar.png'
 const qrCodeDemo =
@@ -22,6 +23,7 @@ const CandidatesPage = () => {
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
 	const [NameBackDrop, setNameBackDrop] = useState(false)
 	const [LetterBackDrop, setLetterBackDrop] = useState(false)
+	const [NewCandidateBackDrop, setNewCandidateBackDrop] = useState(false)
 	const [CandidateName, setCandidateName] = useState('')
 	const [NameControl, setNameControl] = useState(true)
 	const [CandidateLetter, setCandidateLetter] = useState('')
@@ -50,6 +52,11 @@ const CandidatesPage = () => {
 	]
 	return (
 		<>
+			{NewCandidateBackDrop && (
+				<BackDrop>
+					<AddNewCandidate setNewCandidateBackDrop={setNewCandidateBackDrop} />
+				</BackDrop>
+			)}
 			{toggleBackDrop && (
 				<BackDrop>
 					<form className='AddCandidateForm'>
@@ -278,7 +285,13 @@ const CandidatesPage = () => {
 					</form>
 				</BackDrop>
 			)}
-			<Button variant='contained' size='small' color='primary'>
+			<Button
+				variant='contained'
+				size='small'
+				color='primary'
+				type='button'
+				onClick={() => setNewCandidateBackDrop(true)}
+			>
 				Add New candidate
 			</Button>
 			<Grid

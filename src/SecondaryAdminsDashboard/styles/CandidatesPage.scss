@@ -49,3 +49,30 @@
     width:20rem;
     height:10rem;
 }
+
+.AddNewCandidateForm{
+    background-color:#FFF;
+    width:80%;
+    height:80%;
+    border-radius:5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    div{
+        margin-top: 0.5rem;
+    }
+    button{
+        margin-left: 0.5rem;
+    }
+    .LogoContainer{
+        display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+        img{
+            width :30%;
+            border-radius: 50%;
+        }
+    }
+}
