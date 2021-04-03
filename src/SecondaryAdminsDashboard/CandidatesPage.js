@@ -17,7 +17,12 @@ const imgdemo = 'https://www.w3schools.com/howto/img_avatar.png'
 const qrCodeDemo =
 	'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'
 
-const CandidatesPage = () => {
+const CandidatesPage = ({
+	addNewCandidate,
+	changeCandidateName,
+	changeCandidateLetter,
+	deleteCandidate,
+}) => {
 	const [currentCandidateData, setCurrentCandidateData] = useState('')
 	const [toggleBackDrop, setToggleBackDrop] = useState(false)
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
@@ -42,19 +47,24 @@ const CandidatesPage = () => {
 			Name: 'studentDemo',
 			Late: 'Vote For Me',
 			QRcode: qrCodeDemo,
+			ID: 1831690,
 		},
 		{
 			Image: imgdemo,
-			Name: 'Abdallah Sabbagh',
-			Late: 'lips lorem',
+			Name: 'studentDemo',
+			Late: 'Vote For Me',
 			QRcode: qrCodeDemo,
+			ID: 1831692,
 		},
 	]
 	return (
 		<>
 			{NewCandidateBackDrop && (
 				<BackDrop>
-					<AddNewCandidate setNewCandidateBackDrop={setNewCandidateBackDrop} />
+					<AddNewCandidate
+						setNewCandidateBackDrop={setNewCandidateBackDrop}
+						addNewCandidate={addNewCandidate}
+					/>
 				</BackDrop>
 			)}
 			{toggleBackDrop && (
@@ -132,6 +142,15 @@ const CandidatesPage = () => {
 														size='large'
 														variant='outlined'
 														color='Secondary'
+														onClick={() => {
+															changeCandidateName(
+																CandidateName,
+																currentCandidateData.Name,
+															)
+															setNameBackDrop(false)
+															setNameControl(false)
+															setNameControl(true)
+														}}
 													>
 														Save
 													</Button>
@@ -212,6 +231,14 @@ const CandidatesPage = () => {
 														size='large'
 														variant='outlined'
 														color='Secondary'
+														onClick={() => {
+															changeCandidateLetter(
+																CandidateLetter,
+																currentCandidateData.Late,
+															)
+															setLetterBackDrop(false)
+															setLetterControl(true)
+														}}
 													>
 														Save
 													</Button>
@@ -265,6 +292,11 @@ const CandidatesPage = () => {
 												size='large'
 												variant='outlined'
 												color='Secondary'
+												onClick={() => {
+													deleteCandidate()
+													setDeleteBackDrop(false)
+													setToggleBackDrop(false)
+												}}
 											>
 												Delete
 											</Button>
@@ -304,6 +336,7 @@ const CandidatesPage = () => {
 				{studentsDemo.map((candidate) => {
 					return (
 						<Card
+							key={candidate.ID}
 							className={classes.root}
 							onClick={() => {
 								setToggleBackDrop(true)

@@ -8,7 +8,7 @@ import Logo from '../assests/logo/e-election-logo.png'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import './styles/NavBar.scss'
 
-const NavBar = ({ renderCurrentPage }) => (
+const NavBar = ({ renderCurrentPage, logOut }) => (
 	<Grid className='navbar2' container direction='row' justify='center'>
 		<Container className='sm-nav'>
 			<div className='logoContainer'>
@@ -31,6 +31,7 @@ const NavBar = ({ renderCurrentPage }) => (
 					variant='outlined'
 					size='large'
 					type='button'
+					onClick={() => logOut()}
 				>
 					Log out
 				</Button>
