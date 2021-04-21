@@ -2,14 +2,22 @@ import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import Logo from '../assests/logo/e-election-logo.png'
 
-const AddNewCandidate = ({ setNewCandidateBackDrop, addNewCandidate }) => {
+const AddNewCandidate = ({
+	setNewCandidateBackDrop,
+	addNewCandidate,
+	currentManifest,
+}) => {
 	const [Name, setName] = useState('')
 	const [NameControl, setNameControl] = useState(false)
 	const [ID, setID] = useState('')
 	const [IDControl, setIDControl] = useState(false)
 	const [Letter, setLetter] = useState('')
 	return (
-		<form class='AddNewCandidateForm' onSubmit={(e) => addNewCandidate(e)}>
+		<form
+			class='AddNewCandidateForm'
+			onSubmit={(e) => addNewCandidate(e, Name, ID, Letter, currentManifest)}
+		>
+			<span>{currentManifest}</span>
 			<div className='LogoContainer'>
 				<img src={Logo} alt='logo' />
 			</div>

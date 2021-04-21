@@ -58,7 +58,7 @@ const Dashboard = () => {
 					</InnerNav>
 					<InnerNav style={{ width: '18.5rem', backgroundColor: '#222632' }}>
 						<WelcomeMsg name={'ADMIN'} />
-						<SearchInput />
+						{/* <SearchInput /> */}
 						<Colleges />
 					</InnerNav>
 				</AdminsNavBar>

@@ -95,6 +95,7 @@
 	justify-content: flex-start;
 	cursor: pointer;
 	color: #fff;
+	overflow-y: scroll;
 }
 .college-container div {
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);

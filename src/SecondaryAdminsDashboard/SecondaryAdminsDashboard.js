@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react'
 import { ProjectFireStore } from '../FireBase/fireBase'
 import { SecondaryAdmins } from '../FireBase/SecondaryAdminAuth'
 import { AuthContext } from '../Contexts/AuthContext'
@@ -9,12 +9,14 @@ import CandidatesPage from './CandidatesPage'
 import DefualtPage from './DefualtPage'
 import BackDropSpinner from '../Shared/BackdropSpinner'
 import './styles/SecondaryAdmin.scss'
+export const Context = createContext()
 const SecondDashboard = () => {
 	const currentUser = useContext(AuthContext).currentUser
 	const [currentPage, setCurrentPage] = useState(<DefualtPage />)
 	const [loading, setLoading] = useState(false)
-	const [Manifiests, setManifiests] = useState([])
+	const [Manifiests, setManifiests] = useState('')
 	const [currentCollegeName, setCurrentCollegeName] = useState('')
+	const [currentManifest, setcurrentManifest] = useState('')
 	const renderCurrentPage = (currentPage) => {
 		switch (currentPage) {
 			case 'AddNewList':
@@ -27,6 +29,7 @@ const SecondDashboard = () => {
 						changeCandidateName={changeCandidateName}
 						changeCandidateLetter={changeCandidateLetter}
 						deleteCandidate={deleteCandidate}
+						currentManifest={currentManifest}
 					/>,
 				)
 				break
@@ -38,16 +41,41 @@ const SecondDashboard = () => {
 	const logOut = () => {
 		return SecondaryAdmins.signOut()
 	}
+	const onManifiestClick = (Manifiest) => {
+		setcurrentManifest(Manifiest)
+	}
 	const addNewManifiest = (e, ManifiestName) => {
 		e.preventDefault()
 		console.log('addNewManifiest', ManifiestName)
+		ProjectFireStore.collection('Collage')
+			.doc(currentCollegeName)
+			.collection('Manifiest')
+			.doc(ManifiestName)
+			.set({
+				Name: ManifiestName,
+			})
+			.catch((err) => console.log(err))
 	}
-	const addNewCandidate = (e) => {
+	const addNewCandidate = (e, Name, ID, Letter, currentManifest) => {
 		e.preventDefault()
-		console.log('addNewCandidate')
+		try {
+			ProjectFireStore.collection('Collage')
+				.doc(currentCollegeName)
+				.collection('Manifiest')
+				.doc(currentManifest)
+				.collection('Candidates')
+				.doc(ID)
+				.set({
+					Name,
+					ID,
+					Letter,
+				})
+		} catch {
+			alert(`something went wrong with ${currentManifest} `, currentManifest)
+		}
 	}
 	const changeCandidateName = (CandidateName, currentCandidateDataName) => {
-		console.log('changeCandidateName', CandidateName, currentCandidateDataName)
+		// console.log('changeCandidateName', CandidateName, currentCandidateDataName)
 	}
 	const changeCandidateLetter = (
 		CandidateLetter,
@@ -63,15 +91,24 @@ const SecondDashboard = () => {
 		console.log('deleteCandidate')
 	}
 	const getManifiest = (collegeName) => {
-		ProjectFireStore.collection('Collage')
-			.doc('HU')
-			.collection('Manifest')
-			.get()
-			.then((res) => {
-				res.docs.forEach((el) => {
-					console.log(el.id)
+		try {
+			ProjectFireStore.collection('Collage')
+				.doc(collegeName)
+				.collection('Manifiest')
+				.onSnapshot((res) => {
+					let data = []
+					res.docs.forEach((el) => {
+						data.push(el.id)
+					})
+					if (data.length > 0) {
+						setManifiests(data)
+					} else {
+						setManifiests('')
+					}
 				})
-			})
+		} catch {
+			setManifiests('')
+		}
 	}
 
 	useEffect(() => {
@@ -89,12 +126,21 @@ const SecondDashboard = () => {
 				console.log(err)
 			})
 		//get all manifiests
-	}, [currentUser])
+		console.log(currentManifest)
+	}, [currentUser, currentManifest])
 	return (
 		<div className='SecondaryAdmin'>
 			{loading && <BackDropSpinner />}
-			<NavBar renderCurrentPage={renderCurrentPage} logOut={logOut} />
-			<WorkSpace>{currentPage}</WorkSpace>
+			<NavBar
+				Manifiests={Manifiests}
+				renderCurrentPage={renderCurrentPage}
+				logOut={logOut}
+				onManifiestClick={onManifiestClick}
+			/>
+			<Context.Provider value={currentManifest}>
+				<WorkSpace>{currentPage}</WorkSpace>
+			</Context.Provider>
+
 			{/* <BackDropSpinner /> */}
 		</div>
 	)

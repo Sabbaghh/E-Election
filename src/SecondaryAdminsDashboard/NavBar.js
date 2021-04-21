@@ -8,7 +8,12 @@ import Logo from '../assests/logo/e-election-logo.png'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import './styles/NavBar.scss'
 
-const NavBar = ({ renderCurrentPage, logOut }) => (
+const NavBar = ({
+	renderCurrentPage,
+	logOut,
+	Manifiests,
+	onManifiestClick,
+}) => (
 	<Grid className='navbar2' container direction='row' justify='center'>
 		<Container className='sm-nav'>
 			<div className='logoContainer'>
@@ -42,7 +47,11 @@ const NavBar = ({ renderCurrentPage, logOut }) => (
 				<span>HU ADMIN PORTAL</span>
 			</div>
 			<Container className='manifestContainer'>
-				<Manifest renderCurrentPage={renderCurrentPage} />
+				<Manifest
+					Manifiests={Manifiests}
+					renderCurrentPage={renderCurrentPage}
+					onManifiestClick={onManifiestClick}
+				/>
 			</Container>
 		</Container>
 	</Grid>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button'
 import BackDrop from '../Shared/BackDrop'
 import CloseIcon from '@material-ui/icons/Close'
 import AddNewCandidate from './AddNewCandidate'
+import { Context } from './SecondaryAdminsDashboard'
 import './styles/CandidatesPage.scss'
 const imgdemo = 'https://www.w3schools.com/howto/img_avatar.png'
 const qrCodeDemo =
@@ -23,6 +24,8 @@ const CandidatesPage = ({
 	changeCandidateLetter,
 	deleteCandidate,
 }) => {
+	const currentManifest = useContext(Context)
+	console.log(currentManifest)
 	const [currentCandidateData, setCurrentCandidateData] = useState('')
 	const [toggleBackDrop, setToggleBackDrop] = useState(false)
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
@@ -56,7 +59,22 @@ const CandidatesPage = ({
 			QRcode: qrCodeDemo,
 			ID: 1831692,
 		},
+		{
+			Image: imgdemo,
+			Name: 'studentDemo',
+			Late: 'Vote For Me',
+			QRcode: qrCodeDemo,
+			ID: 18316988,
+		},
+		{
+			Image: imgdemo,
+			Name: 'studentDemo',
+			Late: 'Vote For Me',
+			QRcode: qrCodeDemo,
+			ID: 183169623,
+		},
 	]
+	console.log(currentManifest)
 	return (
 		<>
 			{NewCandidateBackDrop && (
@@ -64,6 +82,7 @@ const CandidatesPage = ({
 					<AddNewCandidate
 						setNewCandidateBackDrop={setNewCandidateBackDrop}
 						addNewCandidate={addNewCandidate}
+						currentManifest={currentManifest}
 					/>
 				</BackDrop>
 			)}
@@ -317,6 +336,8 @@ const CandidatesPage = ({
 					</form>
 				</BackDrop>
 			)}
+			{/* __TODO__ make the button smaller and appear another way */}
+			<span>{currentManifest}</span>
 			<Button
 				variant='contained'
 				size='small'
@@ -347,7 +368,7 @@ const CandidatesPage = ({
 								<CardMedia
 									component='img'
 									alt='Contemplative Reptile'
-									height='200'
+									height='150'
 									image={candidate.Image ? candidate.Image : imgdemo}
 									title='Contemplative Reptile'
 								/>
