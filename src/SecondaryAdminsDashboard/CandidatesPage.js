@@ -25,7 +25,6 @@ const CandidatesPage = ({
 	deleteCandidate,
 }) => {
 	const currentManifest = useContext(Context)
-	console.log(currentManifest)
 	const [currentCandidateData, setCurrentCandidateData] = useState('')
 	const [toggleBackDrop, setToggleBackDrop] = useState(false)
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
@@ -337,16 +336,13 @@ const CandidatesPage = ({
 				</BackDrop>
 			)}
 			{/* __TODO__ make the button smaller and appear another way */}
-			<span>{currentManifest}</span>
-			<Button
-				variant='contained'
-				size='small'
-				color='primary'
+			<button
+				className='addCandidateBTN'
 				type='button'
 				onClick={() => setNewCandidateBackDrop(true)}
 			>
 				Add New candidate
-			</Button>
+			</button>
 			<Grid
 				container
 				direction='row'

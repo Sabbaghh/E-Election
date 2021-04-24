@@ -17,6 +17,9 @@ const SecondDashboard = () => {
 	const [Manifiests, setManifiests] = useState('')
 	const [currentCollegeName, setCurrentCollegeName] = useState('')
 	const [currentManifest, setcurrentManifest] = useState('')
+	const [closeAddCandidateBackDrop, setCloseAddCandidateBackDrop] = useState(
+		true,
+	)
 	const renderCurrentPage = (currentPage) => {
 		switch (currentPage) {
 			case 'AddNewList':
@@ -30,6 +33,7 @@ const SecondDashboard = () => {
 						changeCandidateLetter={changeCandidateLetter}
 						deleteCandidate={deleteCandidate}
 						currentManifest={currentManifest}
+						closeAddCandidateBackDrop={closeAddCandidateBackDrop}
 					/>,
 				)
 				break
