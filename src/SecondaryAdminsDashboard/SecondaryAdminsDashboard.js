@@ -13,13 +13,10 @@ export const Context = createContext()
 const SecondDashboard = () => {
 	const currentUser = useContext(AuthContext).currentUser
 	const [currentPage, setCurrentPage] = useState(<DefualtPage />)
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [Manifiests, setManifiests] = useState('')
 	const [currentCollegeName, setCurrentCollegeName] = useState('')
 	const [currentManifest, setcurrentManifest] = useState('')
-	const [closeAddCandidateBackDrop, setCloseAddCandidateBackDrop] = useState(
-		true,
-	)
 	const renderCurrentPage = (currentPage) => {
 		switch (currentPage) {
 			case 'AddNewList':
@@ -33,7 +30,6 @@ const SecondDashboard = () => {
 						changeCandidateLetter={changeCandidateLetter}
 						deleteCandidate={deleteCandidate}
 						currentManifest={currentManifest}
-						closeAddCandidateBackDrop={closeAddCandidateBackDrop}
 					/>,
 				)
 				break
@@ -50,6 +46,7 @@ const SecondDashboard = () => {
 	}
 	const addNewManifiest = (e, ManifiestName) => {
 		e.preventDefault()
+		setLoading(true);
 		console.log('addNewManifiest', ManifiestName)
 		ProjectFireStore.collection('Collage')
 			.doc(currentCollegeName)
@@ -57,11 +54,16 @@ const SecondDashboard = () => {
 			.doc(ManifiestName)
 			.set({
 				Name: ManifiestName,
+			}).then(()=>{
+				setLoading(false);
+				renderCurrentPage('');
+				console.log('added')
 			})
-			.catch((err) => console.log(err))
+			.catch((err) => alert(`something went wrong!`))
 	}
-	const addNewCandidate = (e, Name, ID, Letter, currentManifest) => {
+	const addNewCandidate = (e, Name, ID, Letter, currentManifest,setNewCandidateBackDrop) => {
 		e.preventDefault()
+		setLoading(true)
 		try {
 			ProjectFireStore.collection('Collage')
 				.doc(currentCollegeName)
@@ -73,9 +75,12 @@ const SecondDashboard = () => {
 					Name,
 					ID,
 					Letter,
+				}).then(()=>{
+					setNewCandidateBackDrop(false)
+					setLoading(false)
 				})
 		} catch {
-			alert(`something went wrong with ${currentManifest} `, currentManifest)
+			alert(`something went wrong with`)
 		}
 	}
 	const changeCandidateName = (CandidateName, currentCandidateDataName) => {
@@ -85,11 +90,6 @@ const SecondDashboard = () => {
 		CandidateLetter,
 		currentCandidateDataLetter,
 	) => {
-		console.log(
-			'changeCandidateLetter',
-			CandidateLetter,
-			currentCandidateDataLetter,
-		)
 	}
 	const deleteCandidate = () => {
 		console.log('deleteCandidate')

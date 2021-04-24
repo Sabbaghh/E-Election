@@ -15,7 +15,7 @@ const AddNewCandidate = ({
 	return (
 		<form
 			class='AddNewCandidateForm'
-			onSubmit={(e) => addNewCandidate(e, Name, ID, Letter, currentManifest)}
+			onSubmit={(e) => addNewCandidate(e, Name, ID, Letter, currentManifest,setNewCandidateBackDrop)}
 		>
 			<span>{currentManifest}</span>
 			<div className='LogoContainer'>
