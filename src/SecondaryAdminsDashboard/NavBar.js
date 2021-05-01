@@ -13,6 +13,7 @@ const NavBar = ({
 	logOut,
 	Manifiests,
 	onManifiestClick,
+	currentCollegeName,
 }) => (
 	<Grid className='navbar2' container direction='row' justify='center'>
 		<Container className='sm-nav'>
@@ -44,7 +45,7 @@ const NavBar = ({
 		</Container>
 		<Container className='lg-nav'>
 			<div className='portalName'>
-				<span>HU ADMIN PORTAL</span>
+				<span>{currentCollegeName} ADMIN PORTAL</span>
 			</div>
 			<Container className='manifestContainer'>
 				<Manifest

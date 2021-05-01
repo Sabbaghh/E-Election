@@ -15,16 +15,13 @@ import AddNewCandidate from './AddNewCandidate'
 import { Context } from './SecondaryAdminsDashboard'
 import './styles/CandidatesPage.scss'
 const imgdemo = 'https://www.w3schools.com/howto/img_avatar.png'
-const qrCodeDemo =
-	'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/1200px-QR_code_for_mobile_English_Wikipedia.svg.png'
-
 const CandidatesPage = ({
 	addNewCandidate,
 	changeCandidateName,
 	changeCandidateLetter,
 	deleteCandidate,
 }) => {
-	const currentManifest = useContext(Context)
+	const { currentManifest, candidates } = useContext(Context)
 	const [currentCandidateData, setCurrentCandidateData] = useState('')
 	const [toggleBackDrop, setToggleBackDrop] = useState(false)
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
@@ -35,6 +32,7 @@ const CandidatesPage = ({
 	const [NameControl, setNameControl] = useState(true)
 	const [CandidateLetter, setCandidateLetter] = useState('')
 	const [LetterControl, setLetterControl] = useState(true)
+	const [currentCandidateID, setCurrentCandidateID] = useState('')
 
 	const useStyles = makeStyles({
 		root: {
@@ -43,37 +41,6 @@ const CandidatesPage = ({
 		},
 	})
 	const classes = useStyles()
-	const studentsDemo = [
-		{
-			Image: imgdemo,
-			Name: 'studentDemo',
-			Late: 'Vote For Me',
-			QRcode: qrCodeDemo,
-			ID: 1831690,
-		},
-		{
-			Image: imgdemo,
-			Name: 'studentDemo',
-			Late: 'Vote For Me',
-			QRcode: qrCodeDemo,
-			ID: 1831692,
-		},
-		{
-			Image: imgdemo,
-			Name: 'studentDemo',
-			Late: 'Vote For Me',
-			QRcode: qrCodeDemo,
-			ID: 18316988,
-		},
-		{
-			Image: imgdemo,
-			Name: 'studentDemo',
-			Late: 'Vote For Me',
-			QRcode: qrCodeDemo,
-			ID: 183169623,
-		},
-	]
-	console.log(currentManifest)
 	return (
 		<>
 			{NewCandidateBackDrop && (
@@ -120,9 +87,7 @@ const CandidatesPage = ({
 									label='name'
 									className='input'
 									value={
-										currentCandidateData.Name && NameControl
-											? currentCandidateData.Name
-											: CandidateName
+										NameControl ? currentCandidateData.Name : CandidateName
 									}
 									onChange={(e) => setCandidateName(e.target.value)}
 									disabled={NameControl}
@@ -163,7 +128,9 @@ const CandidatesPage = ({
 														onClick={() => {
 															changeCandidateName(
 																CandidateName,
-																currentCandidateData.Name,
+																currentCandidateData,
+																currentManifest,
+																setToggleBackDrop,
 															)
 															setNameBackDrop(false)
 															setNameControl(false)
@@ -208,8 +175,8 @@ const CandidatesPage = ({
 									rows={2}
 									className='input'
 									value={
-										currentCandidateData.Name && LetterControl
-											? currentCandidateData.Late
+										LetterControl
+											? currentCandidateData.letter
 											: CandidateLetter
 									}
 									onChange={(e) => setCandidateLetter(e.target.value)}
@@ -248,11 +215,13 @@ const CandidatesPage = ({
 														type='button'
 														size='large'
 														variant='outlined'
-														color='Secondary'
+														color='secondary'
 														onClick={() => {
 															changeCandidateLetter(
 																CandidateLetter,
-																currentCandidateData.Late,
+																currentCandidateData,
+																currentManifest,
+																setToggleBackDrop,
 															)
 															setLetterBackDrop(false)
 															setLetterControl(true)
@@ -311,7 +280,7 @@ const CandidatesPage = ({
 												variant='outlined'
 												color='Secondary'
 												onClick={() => {
-													deleteCandidate()
+													deleteCandidate(currentCandidateData, currentManifest)
 													setDeleteBackDrop(false)
 													setToggleBackDrop(false)
 												}}
@@ -335,7 +304,6 @@ const CandidatesPage = ({
 					</form>
 				</BackDrop>
 			)}
-			{/* __TODO__ make the button smaller and appear another way */}
 			<button
 				className='addCandidateBTN'
 				type='button'
@@ -350,52 +318,56 @@ const CandidatesPage = ({
 				alignItems='center'
 				className='CandidatesPage'
 			>
-				{studentsDemo.map((candidate) => {
-					return (
-						<Card
-							key={candidate.ID}
-							className={classes.root}
-							onClick={() => {
-								setToggleBackDrop(true)
-								setCurrentCandidateData(candidate)
-							}}
-						>
-							<CardActionArea>
-								<CardMedia
-									component='img'
-									alt='Contemplative Reptile'
-									height='150'
-									image={candidate.Image ? candidate.Image : imgdemo}
-									title='Contemplative Reptile'
-								/>
-								<CardContent>
-									<Typography gutterBottom variant='h5' component='h2'>
-										{candidate.Name}
-									</Typography>
-									<Typography
-										variant='body2'
-										color='textSecondary'
-										component='p'
+				{candidates ? (
+					candidates.map((candidate) => {
+						return (
+							<Card
+								key={candidate.ID}
+								className={classes.root}
+								onClick={() => {
+									setToggleBackDrop(true)
+									setCurrentCandidateData(candidate)
+								}}
+							>
+								<CardActionArea>
+									<CardMedia
+										component='img'
+										alt='Contemplative Reptile'
+										height='150'
+										image={candidate.Image ? candidate.Image : imgdemo}
+										title='Contemplative Reptile'
+									/>
+									<CardContent>
+										<Typography gutterBottom variant='h5' component='h2'>
+											{candidate.Name}
+										</Typography>
+										<Typography
+											variant='body2'
+											color='textSecondary'
+											component='p'
+										>
+											{candidate.Letter}
+										</Typography>
+									</CardContent>
+								</CardActionArea>
+								<CardActions>
+									<Button
+										onClick={() => {
+											setToggleBackDrop(true)
+											setCurrentCandidateData(candidate)
+										}}
+										size='small'
+										color='primary'
 									>
-										{candidate.Late}
-									</Typography>
-								</CardContent>
-							</CardActionArea>
-							<CardActions>
-								<Button
-									onClick={() => {
-										setToggleBackDrop(true)
-										setCurrentCandidateData(candidate)
-									}}
-									size='small'
-									color='primary'
-								>
-									Learn More
-								</Button>
-							</CardActions>
-						</Card>
-					)
-				})}
+										Learn More
+									</Button>
+								</CardActions>
+							</Card>
+						)
+					})
+				) : (
+					<div>there are no candidates</div>
+				)}
 			</Grid>
 		</>
 	)

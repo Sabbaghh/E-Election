@@ -17,6 +17,8 @@ const SecondDashboard = () => {
 	const [Manifiests, setManifiests] = useState('')
 	const [currentCollegeName, setCurrentCollegeName] = useState('')
 	const [currentManifest, setcurrentManifest] = useState('')
+	const [candidates, setCandidates] = useState('')
+	const contextValues = { candidates, currentManifest }
 	const renderCurrentPage = (currentPage) => {
 		switch (currentPage) {
 			case 'AddNewList':
@@ -30,6 +32,7 @@ const SecondDashboard = () => {
 						changeCandidateLetter={changeCandidateLetter}
 						deleteCandidate={deleteCandidate}
 						currentManifest={currentManifest}
+						candidates={candidates}
 					/>,
 				)
 				break
@@ -43,10 +46,31 @@ const SecondDashboard = () => {
 	}
 	const onManifiestClick = (Manifiest) => {
 		setcurrentManifest(Manifiest)
+		setCandidates('')
+		//get all candidates from this manifiest
+		try {
+			ProjectFireStore.collection('Collage')
+				.doc(currentCollegeName)
+				.collection('Manifiest')
+				.doc(Manifiest)
+				.collection('Candidates')
+				.onSnapshot((res) => {
+					let data = []
+					res.docs.forEach((el) => {
+						data.push(el.data())
+					})
+					if (data.length > 0) {
+						setCandidates(data)
+					}
+				})
+		} catch {
+			alert(`something went wrong`)
+			setCandidates('')
+		}
 	}
 	const addNewManifiest = (e, ManifiestName) => {
 		e.preventDefault()
-		setLoading(true);
+		setLoading(true)
 		console.log('addNewManifiest', ManifiestName)
 		ProjectFireStore.collection('Collage')
 			.doc(currentCollegeName)
@@ -54,14 +78,22 @@ const SecondDashboard = () => {
 			.doc(ManifiestName)
 			.set({
 				Name: ManifiestName,
-			}).then(()=>{
-				setLoading(false);
-				renderCurrentPage('');
+			})
+			.then(() => {
+				setLoading(false)
+				renderCurrentPage('')
 				console.log('added')
 			})
 			.catch((err) => alert(`something went wrong!`))
 	}
-	const addNewCandidate = (e, Name, ID, Letter, currentManifest,setNewCandidateBackDrop) => {
+	const addNewCandidate = (
+		e,
+		Name,
+		ID,
+		Letter,
+		currentManifest,
+		setNewCandidateBackDrop,
+	) => {
 		e.preventDefault()
 		setLoading(true)
 		try {
@@ -75,7 +107,8 @@ const SecondDashboard = () => {
 					Name,
 					ID,
 					Letter,
-				}).then(()=>{
+				})
+				.then(() => {
 					setNewCandidateBackDrop(false)
 					setLoading(false)
 				})
@@ -83,16 +116,70 @@ const SecondDashboard = () => {
 			alert(`something went wrong with`)
 		}
 	}
-	const changeCandidateName = (CandidateName, currentCandidateDataName) => {
-		// console.log('changeCandidateName', CandidateName, currentCandidateDataName)
+	const changeCandidateName = (
+		CandidateName,
+		currentCandidateData,
+		currentManifest,
+		setToggleBackDrop,
+	) => {
+		if (CandidateName === currentCandidateData.Name) {
+			alert(`${CandidateName} is the same as ${currentCandidateData.Name}`)
+		} else {
+			ProjectFireStore.collection('Collage')
+				.doc(currentCollegeName)
+				.collection('Manifiest')
+				.doc(currentManifest)
+				.collection('Candidates')
+				.doc(currentCandidateData.ID)
+				.set({ ...currentCandidateData, Name: CandidateName })
+				.then(() => {
+					alert('Name is updated')
+					setToggleBackDrop(false)
+				})
+				.catch(() => {
+					alert(`somehting went wrong`)
+				})
+		}
 	}
 	const changeCandidateLetter = (
 		CandidateLetter,
-		currentCandidateDataLetter,
+		currentCandidateData,
+		currentManifest,
+		setToggleBackDrop,
 	) => {
+		if (CandidateLetter === currentCandidateData.Letter) {
+			alert(`${CandidateLetter} is the same as ${currentCandidateData.Letter}`)
+		} else {
+			ProjectFireStore.collection('Collage')
+				.doc(currentCollegeName)
+				.collection('Manifiest')
+				.doc(currentManifest)
+				.collection('Candidates')
+				.doc(currentCandidateData.ID)
+				.set({ ...currentCandidateData, Letter: CandidateLetter })
+				.then(() => {
+					alert('Letter is updated')
+					setToggleBackDrop(false)
+				})
+				.catch(() => {
+					alert(`somehting went wrong`)
+				})
+		}
 	}
-	const deleteCandidate = () => {
-		console.log('deleteCandidate')
+	const deleteCandidate = (currentCandidateData, currentManifest) => {
+		ProjectFireStore.collection('Collage')
+			.doc(currentCollegeName)
+			.collection('Manifiest')
+			.doc(currentManifest)
+			.collection('Candidates')
+			.doc(currentCandidateData.ID)
+			.delete()
+			.then(() => {
+				alert('Candidate is deleted')
+			})
+			.catch(() => {
+				alert(`somehting went wrong`)
+			})
 	}
 	const getManifiest = (collegeName) => {
 		try {
@@ -130,7 +217,6 @@ const SecondDashboard = () => {
 				console.log(err)
 			})
 		//get all manifiests
-		console.log(currentManifest)
 	}, [currentUser, currentManifest])
 	return (
 		<div className='SecondaryAdmin'>
@@ -140,8 +226,9 @@ const SecondDashboard = () => {
 				renderCurrentPage={renderCurrentPage}
 				logOut={logOut}
 				onManifiestClick={onManifiestClick}
+				currentCollegeName={currentCollegeName}
 			/>
-			<Context.Provider value={currentManifest}>
+			<Context.Provider value={contextValues}>
 				<WorkSpace>{currentPage}</WorkSpace>
 			</Context.Provider>
 
