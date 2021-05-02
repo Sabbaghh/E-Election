@@ -45,7 +45,7 @@ const NavBar = ({
 		</Container>
 		<Container className='lg-nav'>
 			<div className='portalName'>
-				<span>{currentCollegeName} ADMIN PORTAL</span>
+				<span>{currentCollegeName} REPRESENTATIVE </span>
 			</div>
 			<Container className='manifestContainer'>
 				<Manifest

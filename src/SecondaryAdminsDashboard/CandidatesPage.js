@@ -17,22 +17,18 @@ import './styles/CandidatesPage.scss'
 const imgdemo = 'https://www.w3schools.com/howto/img_avatar.png'
 const CandidatesPage = ({
 	addNewCandidate,
-	changeCandidateName,
 	changeCandidateLetter,
 	deleteCandidate,
+	currentCollegeName,
 }) => {
 	const { currentManifest, candidates } = useContext(Context)
 	const [currentCandidateData, setCurrentCandidateData] = useState('')
 	const [toggleBackDrop, setToggleBackDrop] = useState(false)
 	const [DeleteBackDrop, setDeleteBackDrop] = useState(false)
-	const [NameBackDrop, setNameBackDrop] = useState(false)
 	const [LetterBackDrop, setLetterBackDrop] = useState(false)
 	const [NewCandidateBackDrop, setNewCandidateBackDrop] = useState(false)
-	const [CandidateName, setCandidateName] = useState('')
-	const [NameControl, setNameControl] = useState(true)
 	const [CandidateLetter, setCandidateLetter] = useState('')
 	const [LetterControl, setLetterControl] = useState(true)
-	const [currentCandidateID, setCurrentCandidateID] = useState('')
 
 	const useStyles = makeStyles({
 		root: {
@@ -43,15 +39,26 @@ const CandidatesPage = ({
 	const classes = useStyles()
 	return (
 		<>
+			{/* ~ADD CANDIDATE */}
+			<button
+				className='addCandidateBTN'
+				type='button'
+				onClick={() => setNewCandidateBackDrop(true)}
+			>
+				Add New candidate
+			</button>
 			{NewCandidateBackDrop && (
 				<BackDrop>
 					<AddNewCandidate
 						setNewCandidateBackDrop={setNewCandidateBackDrop}
 						addNewCandidate={addNewCandidate}
 						currentManifest={currentManifest}
+						currentCollegeName={currentCollegeName}
 					/>
 				</BackDrop>
 			)}
+			{/* ~END */}
+
 			{toggleBackDrop && (
 				<BackDrop>
 					<form className='AddCandidateForm'>
@@ -82,103 +89,11 @@ const CandidatesPage = ({
 							</div>
 							<div>
 								<TextField
-									type='text'
-									variant='outlined'
-									label='name'
-									className='input'
-									value={
-										NameControl ? currentCandidateData.Name : CandidateName
-									}
-									onChange={(e) => setCandidateName(e.target.value)}
-									disabled={NameControl}
-								/>
-								<div className='controlButtons'>
-									<Button
-										type='button'
-										size='large'
-										variant='outlined'
-										onClick={() => {
-											setCandidateName(currentCandidateData.Name)
-											setNameControl(false)
-										}}
-										disabled={!NameControl}
-									>
-										change
-									</Button>
-									<Button
-										type='button'
-										size='large'
-										variant='outlined'
-										color='primary'
-										disabled={NameControl}
-										onClick={() => setNameBackDrop(true)}
-									>
-										save
-									</Button>
-									{NameBackDrop && (
-										<BackDrop>
-											<div className='SureMsg'>
-												<p>Are you sure you want to save?</p>
-												<div className='controlButtons'>
-													<Button
-														type='button'
-														size='large'
-														variant='outlined'
-														color='Secondary'
-														onClick={() => {
-															changeCandidateName(
-																CandidateName,
-																currentCandidateData,
-																currentManifest,
-																setToggleBackDrop,
-															)
-															setNameBackDrop(false)
-															setNameControl(false)
-															setNameControl(true)
-														}}
-													>
-														Save
-													</Button>
-													<Button
-														type='button'
-														size='large'
-														variant='outlined'
-														color='primary'
-														onClick={() => setNameBackDrop(false)}
-													>
-														Cancel
-													</Button>
-												</div>
-											</div>
-										</BackDrop>
-									)}
-
-									<Button
-										type='button'
-										size='large'
-										variant='outlined'
-										color='secondary'
-										disabled={NameControl}
-										onClick={() => {
-											setCandidateName(currentCandidateData.Name)
-											setNameControl(true)
-										}}
-									>
-										Cancel
-									</Button>
-								</div>
-							</div>
-							<div>
-								<TextField
-									label='Letter'
+									label='Change Letter'
 									multiline
 									rows={2}
 									className='input'
-									value={
-										LetterControl
-											? currentCandidateData.letter
-											: CandidateLetter
-									}
+									value={CandidateLetter}
 									onChange={(e) => setCandidateLetter(e.target.value)}
 									disabled={LetterControl}
 									variant='outlined'
@@ -249,7 +164,7 @@ const CandidatesPage = ({
 										color='secondary'
 										disabled={LetterControl}
 										onClick={() => {
-											setCandidateLetter(currentCandidateData.Late)
+											setCandidateLetter(currentCandidateData.Letter)
 											setLetterControl(true)
 										}}
 									>
@@ -304,13 +219,6 @@ const CandidatesPage = ({
 					</form>
 				</BackDrop>
 			)}
-			<button
-				className='addCandidateBTN'
-				type='button'
-				onClick={() => setNewCandidateBackDrop(true)}
-			>
-				Add New candidate
-			</button>
 			<Grid
 				container
 				direction='row'
@@ -327,6 +235,7 @@ const CandidatesPage = ({
 								onClick={() => {
 									setToggleBackDrop(true)
 									setCurrentCandidateData(candidate)
+									setCandidateLetter(candidate.Letter)
 								}}
 							>
 								<CardActionArea>

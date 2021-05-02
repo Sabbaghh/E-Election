@@ -53,12 +53,14 @@
 .AddNewCandidateForm{
     background-color:#FFF;
     width:80%;
-    height:80%;
+    height:90%;
     border-radius:5rem;
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-items:center;
+    overflow-y: scroll;
+    padding-bottom: 2rem;
     div{
         margin-top: 0.5rem;
     }
@@ -70,10 +72,38 @@
     flex-direction: column;
     justify-content:center;
     align-items:center;
+    width: 15rem;
+    height:15rem;
+    margin-bottom: 1rem;
         img{
-            width :30%;
-            border-radius: 50%;
+            width :100%;
+            border-radius: 10%;
         }
+    }
+    .studentData{
+        p{
+            font-size: 20px;
+            border: 1px solid black;
+            padding: 0.5rem;
+            .correct{
+                color:green;
+                font-weight: bold;
+            }
+            .incorrect{
+                color:red;
+                font-weight: bold;
+            }
+            
+        }
+        .LetterInput{
+            display: flex;
+            justify-content:center;
+            align-items:center;
+                width: 100%;
+                div{
+                    width:100%;
+                }
+            }
     }
     
 }

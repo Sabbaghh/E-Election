@@ -8,6 +8,7 @@ import AddNewList from './AddNewList'
 import CandidatesPage from './CandidatesPage'
 import DefualtPage from './DefualtPage'
 import BackDropSpinner from '../Shared/BackdropSpinner'
+import axios from 'axios'
 import './styles/SecondaryAdmin.scss'
 export const Context = createContext()
 const SecondDashboard = () => {
@@ -28,11 +29,11 @@ const SecondDashboard = () => {
 				setCurrentPage(
 					<CandidatesPage
 						addNewCandidate={addNewCandidate}
-						changeCandidateName={changeCandidateName}
 						changeCandidateLetter={changeCandidateLetter}
 						deleteCandidate={deleteCandidate}
 						currentManifest={currentManifest}
 						candidates={candidates}
+						currentCollegeName={currentCollegeName}
 					/>,
 				)
 				break
@@ -84,61 +85,40 @@ const SecondDashboard = () => {
 				renderCurrentPage('')
 				console.log('added')
 			})
-			.catch((err) => alert(`something went wrong!`))
+			.catch(() => alert(`something went wrong!`))
 	}
 	const addNewCandidate = (
-		e,
 		Name,
 		ID,
 		Letter,
+		Image,
 		currentManifest,
-		setNewCandidateBackDrop,
+		setToggle,
 	) => {
-		e.preventDefault()
 		setLoading(true)
 		try {
 			ProjectFireStore.collection('Collage')
-				.doc(currentCollegeName)
+				.doc(
+					`The Faculty of Prince Hussein Bin Abdulla II of Information Technology (IT)`,
+				)
 				.collection('Manifiest')
 				.doc(currentManifest)
 				.collection('Candidates')
-				.doc(ID)
+				.doc(`${ID}`)
 				.set({
 					Name,
 					ID,
 					Letter,
+					Image,
 				})
 				.then(() => {
-					setNewCandidateBackDrop(false)
 					setLoading(false)
+					setToggle(true)
 				})
 		} catch {
 			alert(`something went wrong with`)
-		}
-	}
-	const changeCandidateName = (
-		CandidateName,
-		currentCandidateData,
-		currentManifest,
-		setToggleBackDrop,
-	) => {
-		if (CandidateName === currentCandidateData.Name) {
-			alert(`${CandidateName} is the same as ${currentCandidateData.Name}`)
-		} else {
-			ProjectFireStore.collection('Collage')
-				.doc(currentCollegeName)
-				.collection('Manifiest')
-				.doc(currentManifest)
-				.collection('Candidates')
-				.doc(currentCandidateData.ID)
-				.set({ ...currentCandidateData, Name: CandidateName })
-				.then(() => {
-					alert('Name is updated')
-					setToggleBackDrop(false)
-				})
-				.catch(() => {
-					alert(`somehting went wrong`)
-				})
+			setToggle(true)
+			setLoading(false)
 		}
 	}
 	const changeCandidateLetter = (
@@ -155,7 +135,7 @@ const SecondDashboard = () => {
 				.collection('Manifiest')
 				.doc(currentManifest)
 				.collection('Candidates')
-				.doc(currentCandidateData.ID)
+				.doc(`${currentCandidateData.ID}`)
 				.set({ ...currentCandidateData, Letter: CandidateLetter })
 				.then(() => {
 					alert('Letter is updated')
@@ -172,7 +152,7 @@ const SecondDashboard = () => {
 			.collection('Manifiest')
 			.doc(currentManifest)
 			.collection('Candidates')
-			.doc(currentCandidateData.ID)
+			.doc(`${currentCandidateData.ID}`)
 			.delete()
 			.then(() => {
 				alert('Candidate is deleted')
