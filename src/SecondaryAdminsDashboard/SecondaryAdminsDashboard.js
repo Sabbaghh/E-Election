@@ -98,9 +98,7 @@ const SecondDashboard = () => {
 		setLoading(true)
 		try {
 			ProjectFireStore.collection('Collage')
-				.doc(
-					`The Faculty of Prince Hussein Bin Abdulla II of Information Technology (IT)`,
-				)
+				.doc(currentCollegeName)
 				.collection('Manifiest')
 				.doc(currentManifest)
 				.collection('Candidates')
@@ -189,6 +187,7 @@ const SecondDashboard = () => {
 			.doc(currentUser.email)
 			.get()
 			.then((data) => {
+				console.log(data.data())
 				setCurrentCollegeName(data.data().collegeName)
 				setLoading(false)
 				getManifiest(data.data().collegeName)

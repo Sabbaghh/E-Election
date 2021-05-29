@@ -6,11 +6,13 @@ import LogoElement from '../Shared/logoElement'
 import ProfileSetting from '../Shared/ProfileSetting'
 import WelcomeMsg from '../Shared/WelcomeMsg'
 import SearchInput from '../Shared/SearchInput'
+import { Button } from '@material-ui/core'
 import Colleges from './Colleges'
 import CollegeInformations from '../Shared/CollegeInformationsContainer'
 import CollegeItems from '../Shared/CollegeItems'
 import DefaultPage from './DefualtPage'
 import ConfigPage from './ConfigPage'
+import Statistics from './statistics'
 import './css/MainAdmin.css'
 export const DashboardContext = createContext()
 const Dashboard = () => {
@@ -34,6 +36,8 @@ const Dashboard = () => {
 				return <ConfigPage />
 			case 'profile':
 				return <div>profile</div>
+			case 'Statistics':
+				return <Statistics />
 			case '':
 				return <DefaultPage />
 			default:
@@ -54,6 +58,17 @@ const Dashboard = () => {
 							height={'5rem'}
 							onfunction={() => setCurrentCollege('')}
 						/>
+						<Button
+							size='small'
+							variant='contained'
+							color='primary'
+							onClick={() => {
+								setCurrentCollege('Statistics')
+								renderCurrentElement('')
+							}}
+						>
+							Statistics
+						</Button>
 						<ProfileSetting />
 					</InnerNav>
 					<InnerNav style={{ width: '18.5rem', backgroundColor: '#222632' }}>

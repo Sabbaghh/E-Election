@@ -15,20 +15,32 @@ const ConfigPage = () => {
 	}
 	const onConfirm = (e) => {
 		e.preventDefault()
+		if (StartDate === EndDate) {
+			alert(`please enter a valid date`)
+			return
+		}
 		let startDateTimeStamp = TimeStamps.fromDate(new Date(StartDate))
 		let endDateTimeStamp = TimeStamps.fromDate(new Date(EndDate))
 		if (startDateTimeStamp > endDateTimeStamp) {
 			alert('the end date is earlier than the end date')
+			return
 		} else {
+			if (TotalNumberOfSeats <= 0) {
+				alert('please enter a valid seats number')
+			}
 			ProjectFireStore.collection('Config')
 				.doc('Date')
 				.set({
 					StartDate: TimeStamps.fromDate(new Date(StartDate)),
 					EndDate: TimeStamps.fromDate(new Date(EndDate)),
 				})
-			ProjectFireStore.collection('Config').doc('NSeatTotal').set({
-				Number: TotalNumberOfSeats,
-			})
+
+			if (TotalNumberOfSeats > 0) {
+				ProjectFireStore.collection('Config').doc('NSeatTotal').set({
+					Number: TotalNumberOfSeats,
+				})
+			}
+
 			setToggle(false)
 		}
 	}

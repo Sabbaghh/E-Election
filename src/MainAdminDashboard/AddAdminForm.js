@@ -27,7 +27,14 @@ const AddAdminForm = () => {
 		setSeatsFromInput(e.target.value)
 	}
 	const addSeats = () => {
-		console.log(currentCollege, SeatsfromInput, currentData)
+		if (SeatsfromInput < 0) {
+			alert('please enter a valid seat Number')
+			return
+		}
+		if (SeatsfromInput >= TotalNumberOfSeats) {
+			alert('please enter seat number less than total number of seats')
+			return
+		}
 		ProjectFireStore.collection('Collage')
 			.doc(currentCollege)
 			.set({ ...currentData, seatsNumber: SeatsfromInput })

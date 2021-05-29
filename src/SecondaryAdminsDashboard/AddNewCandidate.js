@@ -115,7 +115,8 @@ const AddNewCandidate = ({
 								<p>
 									Belong to the Collage :{' '}
 									<span>
-										{studentData.Department === currentCollegeName ? (
+										{studentData.Department === currentCollegeName ||
+										currentCollegeName === `Hashemite University` ? (
 											<span>
 												YES <span className='correct'>&#10003;</span>
 											</span>
@@ -183,7 +184,8 @@ const AddNewCandidate = ({
 										!(
 											studentData.GPA >= 2.5 &&
 											!studentData.Alert &&
-											studentData.Department === currentCollegeName &&
+											(studentData.Department === currentCollegeName ||
+												currentCollegeName === `Hashemite University`) &&
 											!studentData.IsCandidate
 										)
 									}
